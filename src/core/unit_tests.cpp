@@ -30,6 +30,8 @@
 #include "core/memory/memory.inl"
 #include "core/memory/temp_allocator.inl"
 #include "core/murmur.h"
+#include "core/network/ip_address.h"
+#include "core/network/socket.h"
 #include "core/os.h"
 #include "core/process.h"
 #include "core/strings/dynamic_string.inl"
@@ -43,6 +45,7 @@
 #undef CE_ASSERT
 #undef CE_ENSURE
 #undef CE_FATAL
+
 #define ENSURE(condition)                                \
 	do                                                   \
 	{                                                    \
@@ -1538,6 +1541,22 @@ int main_unit_tests()
 	RUN_TEST(test_filesystem);
 
 	return EXIT_SUCCESS;
+}
+
+int main_send(const char* json, u16 port)
+{
+	TCPSocket socket;
+	ConnectResult connect(const IPAddress& ip, u16 port);
+	socket.connect(IP_ADDRESS_LOOPBACK, port);
+	getchar();
+	u32 len = strlen(json);
+	printf("sending %d %s\n", len, json);
+	WriteResult wr;
+	wr = socket.write(&len, 4);
+	if (wr.error == WriteResult::SUCCESS)
+		wr = socket.write(json, len);
+	socket.close();
+	return wr.error;
 }
 
 } // namespace crown

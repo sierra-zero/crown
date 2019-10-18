@@ -9,6 +9,7 @@
 #include "core/platform.h"
 #include <new>
 #include <string.h> // memcpy
+#include <stdio.h>
 
 #if CROWN_PLATFORM_POSIX
 	#include <errno.h>
@@ -195,11 +196,85 @@ namespace socket_internal
 
 } // namespace socket_internal
 
+namespace socket
+{
+	int select(u32 num_read, TCPSocket* read, u32 num_write, TCPSocket* write, u32 timeout_ms)
+	{
+		int maxfd = -1;
+
+		// Read fds
+		fd_set readfds;
+		FD_ZERO(&readfds);
+		for (u32 i = 0; i < num_read; ++i)
+		{
+			Private* priv = (Private*)read[i]._data;
+			FD_SET(priv->socket, &readfds);
+
+			if (maxfd < priv->socket)
+				maxfd = priv->socket;
+		}
+
+		// Write fds
+		fd_set writefds;
+		FD_ZERO(&writefds);
+		for (u32 i = 0; i < num_write; ++i)
+		{
+			Private* priv = (Private*)read[i]._data;
+			FD_SET(priv->socket, &writefds);
+
+			if (maxfd < priv->socket)
+				maxfd = priv->socket;
+		}
+
+		struct timeval tv;
+		tv.tv_sec  = timeout_ms / 1000;
+		tv.tv_usec = timeout_ms % 1000 * 1000;
+
+		int ret = select(maxfd + 1
+			, &readfds
+			, &writefds
+			, NULL
+			, (timeout_ms == UINT32_MAX) ? NULL : &tv
+			);
+
+		if (ret == -1)
+		{
+			printf("select error\n");
+		}
+		else if (ret != 0)
+		{
+			printf("select data ready\n");
+			for (u32 i = 0; i < num_read; ++i)
+			{
+				Private* priv = (Private*)read[i]._data;
+				if (FD_ISSET(priv->socket, &readfds))
+					read[i].read_ready = true;
+			}
+
+			for (u32 i = 0; i < num_write; ++i)
+			{
+				Private* priv = (Private*)write[i]._data;
+				if (FD_ISSET(priv->socket, &readfds))
+					write[i].write_ready = true;
+			}
+		}
+		else
+		{
+			printf("select timeout\n");
+		}
+
+		return ret;
+	}
+
+} // namespace socket
+
 TCPSocket::TCPSocket()
 {
 	CE_STATIC_ASSERT(sizeof(_data) >= sizeof(*_priv));
 	_priv = new (_data) Private();
 	_priv->socket = INVALID_SOCKET;
+	read_ready = false;
+	write_ready = false;
 }
 
 TCPSocket::TCPSocket(const TCPSocket& other)
@@ -224,6 +299,7 @@ void TCPSocket::close()
 {
 	if (_priv->socket != INVALID_SOCKET)
 	{
+		::shutdown(_priv->socket, SHUT_RDWR); // Makes blocking accpet() return with SIG??
 		::closesocket(_priv->socket);
 		_priv->socket = INVALID_SOCKET;
 	}

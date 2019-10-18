@@ -1317,7 +1317,6 @@ int main_data_compiler(const DeviceOptions& opts)
 #endif // CROWN_PLATFORM_POSIX
 
 	console_server_globals::init();
-	console_server()->listen(CROWN_DEFAULT_COMPILER_PORT, opts._wait_console);
 
 	namespace cor = config_resource_internal;
 	namespace ftr = font_resource_internal;
@@ -1385,9 +1384,11 @@ int main_data_compiler(const DeviceOptions& opts)
 
 	if (opts._server)
 	{
+		console_server()->listen(CROWN_DEFAULT_COMPILER_PORT, opts._wait_console);
+
 		while (!_quit)
 		{
-			console_server()->update();
+			console_server()->recv_callbacks();
 			os::sleep(60);
 		}
 	}

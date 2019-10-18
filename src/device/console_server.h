@@ -9,6 +9,8 @@
 #include "core/json/types.h"
 #include "core/network/socket.h"
 #include "core/strings/types.h"
+#include "core/thread/mutex.h"
+#include "core/thread/thread.h"
 #include "device/log.h"
 
 namespace crown
@@ -46,8 +48,16 @@ struct ConsoleServer
 	HashMap<StringId32, CommandData> _messages;
 	HashMap<StringId32, CommandData> _commands;
 
-	/// Constructor.
+	Thread _thread;
+	bool _thread_exit;
+	Buffer _recv;
+	Mutex _recv_mutex;
+
+	///
 	ConsoleServer(Allocator& a);
+
+	///
+	~ConsoleServer();
 
 	/// Listens on the given @a port. If @a wait is true, this function
 	/// blocks until a client is connected.
@@ -58,6 +68,9 @@ struct ConsoleServer
 
 	/// Collects requests from clients and processes them all.
 	void update();
+
+	///
+	void recv_callbacks();
 
 	/// Sends the given JSON-encoded string to all clients.
 	void send(const char* json);

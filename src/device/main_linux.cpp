@@ -951,6 +951,10 @@ int main(int argc, char** argv)
 	{
 		return main_unit_tests();
 	}
+	else if (cl.has_option("send"))
+	{
+		return main_send(cl.get_parameter(0, "send"), (u16)atoi(cl.get_parameter(0, "port")));
+	}
 #endif // CROWN_BUILD_UNIT_TESTS
 
 	InitGlobals m;

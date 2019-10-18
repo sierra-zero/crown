@@ -111,9 +111,16 @@ ConsoleServer::ConsoleServer(Allocator& a)
 	, _clients(a)
 	, _messages(a)
 	, _commands(a)
+	, _recv(a)
 {
 	this->register_message_type("command", console_server_internal::message_command, this);
 	this->register_command_name("help", "List all commands", console_server_internal::command_help, this);
+}
+
+ConsoleServer::~ConsoleServer()
+{
+	_thread_exit = true;
+	_thread.stop();
 }
 
 void ConsoleServer::listen(u16 port, bool wait)
@@ -222,21 +229,30 @@ void ConsoleServer::update()
 			}
 
 			// Read message
-			TempAllocator4096 ta;
-			Array<char> msg(ta);
-			array::resize(msg, msg_len + 1);
-			rr = _clients[i].socket.read(array::begin(msg), msg_len);
-			msg[msg_len] = '\0';
-
-			if (rr.error != ReadResult::SUCCESS)
+			char buf[4096];
+			for (u32 pos = 0; pos < msg_len;)
 			{
-				array::push_back(to_remove, _clients[i].id);
-				break;
+				const u32 num_to_read = min(sizeof(buf), size_t(msg_len - pos));
+				rr = _clients[i].socket.read(buf, num_to_read);
+				if (rr.error != ReadResult::SUCCESS)
+				{
+					array::push_back(to_remove, _clients[i].id);
+					break;
+				}
+
+				array::push(_recv, buf, rr.bytes_read);
+				pos += rr.bytes_read;
 			}
 
 			// Process message
-			JsonObject obj(ta);
-			sjson::parse(obj, array::begin(msg));
+			JsonObject obj(default_allocator());
+			sjson::parse(obj, array::begin(_recv));
+
+			if (!json_object::has(obj, "type"))
+			{
+				error(_clients[i].socket, "Missing command type");
+				continue;
+			}
 
 			CommandData cmd;
 			cmd.message_function = NULL;
@@ -247,15 +263,22 @@ void ConsoleServer::update()
 				);
 
 			if (cmd.message_function)
-				cmd.message_function(*this, _clients[i].socket, array::begin(msg), cmd.user_data);
+			{
+				cmd.message_function(*this, _clients[i].socket, array::begin(_recv), cmd.user_data);
+				array::clear(_recv);
+			}
 			else
-				error(_clients[i].socket, "Unknown command");
+				error(_clients[i].socket, "Unknown command type");
 		}
 	}
 
 	// Remove clients
 	for (u32 ii = 0; ii < array::size(to_remove); ++ii)
 		console_server_internal::remove_client(*this, to_remove[ii]);
+}
+
+void ConsoleServer::recv_callbacks()
+{
 }
 
 void ConsoleServer::register_command_name(const char* name, const char* brief, CommandTypeFunction function, void* user_data)

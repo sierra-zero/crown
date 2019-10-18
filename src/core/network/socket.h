@@ -75,6 +75,8 @@ struct TCPSocket
 {
 	struct Private* _priv;
 	CE_ALIGN_DECL(16, u8 _data[8]);
+	bool read_ready;
+	bool write_ready;
 
 	///
 	TCPSocket();
@@ -118,5 +120,12 @@ struct TCPSocket
 	/// Writes @a size bytes and returns the result.
 	WriteResult write_nonblock(const void* data, u32 size);
 };
+
+
+namespace socket
+{
+	int select(u32 num_read, TCPSocket* read, u32 num_write, TCPSocket* write, u32 timeout_ms);
+
+} // namespace socket
 
 } // namespace crown

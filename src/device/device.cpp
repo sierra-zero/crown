@@ -439,7 +439,7 @@ void Device::run()
 		time_last = time;
 
 		profiler_globals::clear();
-		_console_server->update();
+		_console_server->recv_callbacks();
 
 		RECORD_FLOAT("device.dt", dt);
 		RECORD_FLOAT("device.fps", 1.0f/dt);
@@ -521,6 +521,7 @@ void Device::run()
 
 	profiler_globals::shutdown();
 
+	_console_server->shutdown();
 	_allocator.clear();
 }
 
