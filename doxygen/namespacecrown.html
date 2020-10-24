@@ -554,9 +554,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_scene_graph.html">SceneGraph</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a collection of nodes, possibly linked together to form a tree.  <a href="structcrown_1_1_scene_graph.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_scoped_mutex.html">ScopedMutex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Automatically locks a mutex when created and unlocks when destroyed.  <a href="structcrown_1_1_scoped_mutex.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_script_desc.html">ScriptDesc</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Script description.  <a href="structcrown_1_1_script_desc.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1076,6 +1073,10 @@ const f32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gae7660cc5d53c00b8f9f9dcd89f46f12b">operator*</a> (<a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> a, const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;b)</td></tr>
 <tr class="memdesc:gae7660cc5d53c00b8f9f9dcd89f46f12b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies the matrix <em>a</em> by <em>b</em> and returns the result. (i.e. transforms first by <em>a</em> then by <em>b</em>) <br /></td></tr>
 <tr class="separator:gae7660cc5d53c00b8f9f9dcd89f46f12b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b702a0cd2baad4fae0f44bc9a2a0754"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga1b702a0cd2baad4fae0f44bc9a2a0754">operator==</a> (const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;a, const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;b)</td></tr>
+<tr class="memdesc:ga1b702a0cd2baad4fae0f44bc9a2a0754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true whether the matrices <em>a</em> and <em>b</em> are equal. <br /></td></tr>
+<tr class="separator:ga1b702a0cd2baad4fae0f44bc9a2a0754"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaed52a7b5c76ce533d79faf36f9159f52"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gaed52a7b5c76ce533d79faf36f9159f52">transpose</a> (<a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;m)</td></tr>
 <tr class="memdesc:gaed52a7b5c76ce533d79faf36f9159f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transposes the matrix <em>m</em> and returns the result. <br /></td></tr>
@@ -1682,6 +1683,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <tr class="memitem:a41f2746dea3bc771eba1e7c562b8ab67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a41f2746dea3bc771eba1e7c562b8ab67"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="structcrown_1_1_string_view.html">StringView</a> &amp;a, const <a class="el" href="structcrown_1_1_string_view.html">StringView</a> &amp;b)</td></tr>
 <tr class="separator:a41f2746dea3bc771eba1e7c562b8ab67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac857a9c11a8b9802ff0e8260bf93822b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac857a9c11a8b9802ff0e8260bf93822b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="structcrown_1_1_string_view.html">StringView</a> &amp;a, const <a class="el" href="structcrown_1_1_string_view.html">StringView</a> &amp;b)</td></tr>
+<tr class="separator:ac857a9c11a8b9802ff0e8260bf93822b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a275411e9a4ee91449270a991c9eaa4a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a275411e9a4ee91449270a991c9eaa4a3"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;</b> (const <a class="el" href="structcrown_1_1_string_view.html">StringView</a> &amp;a, const <a class="el" href="structcrown_1_1_string_view.html">StringView</a> &amp;b)</td></tr>
 <tr class="separator:a275411e9a4ee91449270a991c9eaa4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1801,33 +1805,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <tr class="memitem:af36ca9b65d1a5f93cbfc3c29d31dc101"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af36ca9b65d1a5f93cbfc3c29d31dc101"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> &amp;a, const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> &amp;b)</td></tr>
 <tr class="separator:af36ca9b65d1a5f93cbfc3c29d31dc101"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a193c9b4eddd3ec8a066712740d5bada9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a193c9b4eddd3ec8a066712740d5bada9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (TransformInstance)</td></tr>
-<tr class="separator:a193c9b4eddd3ec8a066712740d5bada9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f1c4cfb58a242db41f22b5f871e2764"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6f1c4cfb58a242db41f22b5f871e2764"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (CameraInstance)</td></tr>
-<tr class="separator:a6f1c4cfb58a242db41f22b5f871e2764"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a418d81b657e4a15cad1eefb0c2b425dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a418d81b657e4a15cad1eefb0c2b425dc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (MeshInstance)</td></tr>
-<tr class="separator:a418d81b657e4a15cad1eefb0c2b425dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44d4279f179958d94d3a28ea7af04ca9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44d4279f179958d94d3a28ea7af04ca9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (SpriteInstance)</td></tr>
-<tr class="separator:a44d4279f179958d94d3a28ea7af04ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bea31233be19481f963d99384ba0810"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4bea31233be19481f963d99384ba0810"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (LightInstance)</td></tr>
-<tr class="separator:a4bea31233be19481f963d99384ba0810"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4f6d3769cccab9f2d00284e2f0ebad7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4f6d3769cccab9f2d00284e2f0ebad7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (ColliderInstance)</td></tr>
-<tr class="separator:ad4f6d3769cccab9f2d00284e2f0ebad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a982d3c672c7430ce97d434a483145a52"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a982d3c672c7430ce97d434a483145a52"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (ActorInstance)</td></tr>
-<tr class="separator:a982d3c672c7430ce97d434a483145a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c31351b5a04d04e5d69aac31d4619f4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c31351b5a04d04e5d69aac31d4619f4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (JointInstance)</td></tr>
-<tr class="separator:a3c31351b5a04d04e5d69aac31d4619f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace082589b6e00216083c0ad38dc6736b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace082589b6e00216083c0ad38dc6736b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INSTANCE_ID</b> (ScriptInstance)</td></tr>
-<tr class="separator:ace082589b6e00216083c0ad38dc6736b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4f0d7afef0ede87ad5e25d905e1c1ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4f0d7afef0ede87ad5e25d905e1c1ee"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>spawn_units</b> (<a class="el" href="structcrown_1_1_world.html">World</a> &amp;w, const <a class="el" href="structcrown_1_1_unit_resource.html">UnitResource</a> &amp;ur, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;pos, const <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a> &amp;rot, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;scl, const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> *unit_lookup)</td></tr>
 <tr class="separator:ab4f0d7afef0ede87ad5e25d905e1c1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1899,7 +1876,7 @@ const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a>&#160;</td><td
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 24 2020 04:13:40 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 24 2020 20:39:59 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

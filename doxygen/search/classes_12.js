@@ -2,7 +2,6 @@ var searchData=
 [
   ['sampler',['Sampler',['../structcrown_1_1_shader_resource_1_1_sampler.html',1,'crown::ShaderResource']]],
   ['scenegraph',['SceneGraph',['../structcrown_1_1_scene_graph.html',1,'crown']]],
-  ['scopedmutex',['ScopedMutex',['../structcrown_1_1_scoped_mutex.html',1,'crown']]],
   ['scriptdata',['ScriptData',['../structcrown_1_1_script_world_1_1_script_data.html',1,'crown::ScriptWorld']]],
   ['scriptdesc',['ScriptDesc',['../structcrown_1_1_script_desc.html',1,'crown']]],
   ['scriptworld',['ScriptWorld',['../structcrown_1_1_script_world.html',1,'crown']]],

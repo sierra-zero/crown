@@ -35,7 +35,7 @@ var searchData=
   ['local_5frotation',['local_rotation',['../structcrown_1_1_scene_graph.html#a1f6f8d5c85f9551532d8b6b258cbd8de',1,'crown::SceneGraph']]],
   ['local_5fscale',['local_scale',['../structcrown_1_1_scene_graph.html#aac1367201828f34e711b2ce69b8abec5',1,'crown::SceneGraph']]],
   ['lock',['lock',['../structcrown_1_1_mutex.html#a93f3cd263b8241415bc6b3976beb3781',1,'crown::Mutex']]],
-  ['log',['log',['../structcrown_1_1_console_server.html#a818fa8892fd9096b30f6d1412147bd9e',1,'crown::ConsoleServer::log()'],['../structcrown_1_1_device.html#a9edbf18cc925fcc35095d164fd8ae3ff',1,'crown::Device::log()'],['../namespacecrown_1_1os.html#a4e16936154282e2b9736c9333ba38bb5',1,'crown::os::log()']]],
+  ['log',['log',['../structcrown_1_1_console_server.html#a818fa8892fd9096b30f6d1412147bd9e',1,'crown::ConsoleServer::log()'],['../namespacecrown_1_1os.html#a4e16936154282e2b9736c9333ba38bb5',1,'crown::os::log()']]],
   ['look',['look',['../group___math.html#ga13c69006c1986050111e176bb47c2b22',1,'crown']]],
   ['ltrim',['ltrim',['../structcrown_1_1_dynamic_string.html#a49a185b3bc031ccb8fddcb0da44975f6',1,'crown::DynamicString']]]
 ];

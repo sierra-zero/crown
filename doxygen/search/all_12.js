@@ -6,8 +6,6 @@ var searchData=
   ['scan',['scan',['../structcrown_1_1_source_index.html#a762c8aa36b3a4aa54da4cc741620b449',1,'crown::SourceIndex']]],
   ['scan_5fand_5frestore',['scan_and_restore',['../structcrown_1_1_data_compiler.html#acc98903a4e5fb712db0154eb2b7420bd',1,'crown::DataCompiler']]],
   ['scenegraph',['SceneGraph',['../structcrown_1_1_scene_graph.html',1,'crown']]],
-  ['scopedmutex',['ScopedMutex',['../structcrown_1_1_scoped_mutex.html#a7570d50231c79bdc35ab942ff488b3ea',1,'crown::ScopedMutex']]],
-  ['scopedmutex',['ScopedMutex',['../structcrown_1_1_scoped_mutex.html',1,'crown']]],
   ['script_5fresource',['script_resource',['../structcrown_1_1_script_desc.html#a97ecd110ec0fdc20312f5d19a361cd83',1,'crown::ScriptDesc']]],
   ['scriptdata',['ScriptData',['../structcrown_1_1_script_world_1_1_script_data.html',1,'crown::ScriptWorld']]],
   ['scriptdesc',['ScriptDesc',['../structcrown_1_1_script_desc.html',1,'crown']]],
