@@ -476,6 +476,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 Matrix3x3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga05e7950fbae8b5150c1aef2d23d1b6a7">crown::to_matrix3x3</a> (const Matrix4x4 &amp;m)</td></tr>
 <tr class="memdesc:ga05e7950fbae8b5150c1aef2d23d1b6a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rotation portion of the matrix <em>m</em> as a <a class="el" href="structcrown_1_1_matrix3x3.html">Matrix3x3</a>. <br /></td></tr>
 <tr class="separator:ga05e7950fbae8b5150c1aef2d23d1b6a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84a5e85fb858c55fd2555bb2fc601440"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga84a5e85fb858c55fd2555bb2fc601440"></a>
+Quaternion&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga84a5e85fb858c55fd2555bb2fc601440">crown::rotation</a> (const Matrix3x3 &amp;m)</td></tr>
+<tr class="memdesc:ga84a5e85fb858c55fd2555bb2fc601440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rotation portion of the matrix <em>m</em> as a <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a>. <br /></td></tr>
+<tr class="separator:ga84a5e85fb858c55fd2555bb2fc601440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1da4c24bf1430ebdda5a7227f19a5a44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga1da4c24bf1430ebdda5a7227f19a5a44"></a>
 Quaternion&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga1da4c24bf1430ebdda5a7227f19a5a44">crown::rotation</a> (const Matrix4x4 &amp;m)</td></tr>
 <tr class="memdesc:ga1da4c24bf1430ebdda5a7227f19a5a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rotation portion of the matrix <em>m</em> as a <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a>. <br /></td></tr>
@@ -874,6 +878,9 @@ const f32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga8d7612963bfa947d20c3e587eb7e2119">crown::to_vector3</a> (const Vector4 &amp;a)</td></tr>
 <tr class="memdesc:ga8d7612963bfa947d20c3e587eb7e2119"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> portion of <em>a</em>. (i.e. truncates w) <br /></td></tr>
 <tr class="separator:ga8d7612963bfa947d20c3e587eb7e2119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabffcfa0796bd4fb36efa2a6e2ce8a6fa"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gabffcfa0796bd4fb36efa2a6e2ce8a6fa">crown::to_string</a> (const Vector4 &amp;v, char *buf, u32 buf_len)</td></tr>
+<tr class="memdesc:gabffcfa0796bd4fb36efa2a6e2ce8a6fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representing the vector .  <a href="group___math.html#gabffcfa0796bd4fb36efa2a6e2ce8a6fa">More...</a><br /></td></tr>
+<tr class="separator:gabffcfa0796bd4fb36efa2a6e2ce8a6fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
@@ -1185,7 +1192,7 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g
 </div><div class="memdoc">
 
 <p>Returns the rotation portion of the matrix <em>m</em> as a <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a>. </p>
-<p>Returns a new quaternion from matrix <em>m</em>. </p>
+<p>Returns a new quaternion from rotation matrix <em>m</em>. </p>
 
 </div>
 </div>
@@ -1259,10 +1266,45 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="g
 
 </div>
 </div>
+<a class="anchor" id="gabffcfa0796bd4fb36efa2a6e2ce8a6fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * crown::to_string </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcrown_1_1_vector4.html">Vector4</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>buf_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a string representing the vector . </p>
+<dl class="section note"><dt>Note</dt><dd>This function is for debugging purposes only and doesn't output round-trip safe ASCII conversions. Do not use in production. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 24 2020 20:39:59 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2021 15:08:31 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

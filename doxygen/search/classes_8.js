@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['index',['Index',['../structcrown_1_1_hash_map_1_1_index.html',1,'crown::HashMap']]],
   ['index',['Index',['../structcrown_1_1_hash_set_1_1_index.html',1,'crown::HashSet']]],
+  ['index',['Index',['../structcrown_1_1_hash_map_1_1_index.html',1,'crown::HashMap']]],
   ['indexdata',['IndexData',['../structcrown_1_1_gui_1_1_index_data.html',1,'crown::Gui']]],
   ['indexdata',['IndexData',['../structcrown_1_1_index_data.html',1,'crown']]],
   ['inputdevice',['InputDevice',['../structcrown_1_1_input_device.html',1,'crown']]],

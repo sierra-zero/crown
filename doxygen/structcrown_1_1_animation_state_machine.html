@@ -97,30 +97,37 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7f4c3d81f3b513622122feba6920cb54"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f4c3d81f3b513622122feba6920cb54"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>AnimationStateMachine</b> (<a class="el" href="structcrown_1_1_allocator.html">Allocator</a> &amp;a, <a class="el" href="structcrown_1_1_resource_manager.html">ResourceManager</a> &amp;rm, <a class="el" href="structcrown_1_1_unit_manager.html">UnitManager</a> &amp;um)</td></tr>
 <tr class="separator:a7f4c3d81f3b513622122feba6920cb54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acaa82d0f8f1f690e39c8da8af91a6cba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acaa82d0f8f1f690e39c8da8af91a6cba"></a>
-u32&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, const <a class="el" href="structcrown_1_1_animation_state_machine_desc.html">AnimationStateMachineDesc</a> &amp;desc)</td></tr>
-<tr class="separator:acaa82d0f8f1f690e39c8da8af91a6cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c3a5942698c287281ff6b339f2996dd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c3a5942698c287281ff6b339f2996dd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>destroy</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
-<tr class="separator:a1c3a5942698c287281ff6b339f2996dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3ee2d4da7dd6f6d91f89a89d059c5db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3ee2d4da7dd6f6d91f89a89d059c5db"></a>
-u32&#160;</td><td class="memItemRight" valign="bottom"><b>instances</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
-<tr class="separator:ad3ee2d4da7dd6f6d91f89a89d059c5db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a233bd95c706e1111810a4c925ea2d520"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a233bd95c706e1111810a4c925ea2d520"></a>
+StateMachineInstance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_animation_state_machine.html#a233bd95c706e1111810a4c925ea2d520">create</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, const <a class="el" href="structcrown_1_1_animation_state_machine_desc.html">AnimationStateMachineDesc</a> &amp;desc)</td></tr>
+<tr class="memdesc:a233bd95c706e1111810a4c925ea2d520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new state machine instance for the <em>unit</em>. <br /></td></tr>
+<tr class="separator:a233bd95c706e1111810a4c925ea2d520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c6b84aaf0c43ee4f4c97eee1de9fffa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c6b84aaf0c43ee4f4c97eee1de9fffa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_animation_state_machine.html#a6c6b84aaf0c43ee4f4c97eee1de9fffa">destroy</a> (StateMachineInstance state_machine)</td></tr>
+<tr class="memdesc:a6c6b84aaf0c43ee4f4c97eee1de9fffa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the <em>state_machine</em>. <br /></td></tr>
+<tr class="separator:a6c6b84aaf0c43ee4f4c97eee1de9fffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d6c36812117fac95f2eb114d08aa205"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d6c36812117fac95f2eb114d08aa205"></a>
+StateMachineInstance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_animation_state_machine.html#a6d6c36812117fac95f2eb114d08aa205">instance</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+<tr class="memdesc:a6d6c36812117fac95f2eb114d08aa205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ID of the state machine owned by the <em>unit</em>. <br /></td></tr>
+<tr class="separator:a6d6c36812117fac95f2eb114d08aa205"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a588f6a3a486484e788082337d989706f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a588f6a3a486484e788082337d989706f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_animation_state_machine.html#a588f6a3a486484e788082337d989706f">has</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+<tr class="memdesc:a588f6a3a486484e788082337d989706f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the <em>unit</em> has the state machine. <br /></td></tr>
 <tr class="separator:a588f6a3a486484e788082337d989706f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1e92b271467df7840b9508471824b53"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab1e92b271467df7840b9508471824b53"></a>
-u32&#160;</td><td class="memItemRight" valign="bottom"><b>variable_id</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, <a class="el" href="structcrown_1_1_string_id32.html">StringId32</a> name)</td></tr>
-<tr class="separator:ab1e92b271467df7840b9508471824b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ee04f3db05ed81d6d9e579652d2ea90"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5ee04f3db05ed81d6d9e579652d2ea90"></a>
-f32&#160;</td><td class="memItemRight" valign="bottom"><b>variable</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, u32 variable_id)</td></tr>
-<tr class="separator:a5ee04f3db05ed81d6d9e579652d2ea90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b97ab871618655763efbdbb2504479c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b97ab871618655763efbdbb2504479c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_variable</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, u32 variable_id, f32 value)</td></tr>
-<tr class="separator:a2b97ab871618655763efbdbb2504479c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d4dd432275744d2d3eb87b032d9b8e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d4dd432275744d2d3eb87b032d9b8e2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>trigger</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, <a class="el" href="structcrown_1_1_string_id32.html">StringId32</a> event)</td></tr>
-<tr class="separator:a5d4dd432275744d2d3eb87b032d9b8e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a842d6725a64bcb2fde15296a2842e092"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a842d6725a64bcb2fde15296a2842e092"></a>
+u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_animation_state_machine.html#a842d6725a64bcb2fde15296a2842e092">variable_id</a> (StateMachineInstance state_machine, <a class="el" href="structcrown_1_1_string_id32.html">StringId32</a> name)</td></tr>
+<tr class="memdesc:a842d6725a64bcb2fde15296a2842e092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ID of the variable <em>name</em> in the <em>state_machine</em>. <br /></td></tr>
+<tr class="separator:a842d6725a64bcb2fde15296a2842e092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac71ba5181761d675a86a0a50d3862e8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac71ba5181761d675a86a0a50d3862e8a"></a>
+f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_animation_state_machine.html#ac71ba5181761d675a86a0a50d3862e8a">variable</a> (StateMachineInstance state_machine, u32 <a class="el" href="structcrown_1_1_animation_state_machine.html#a842d6725a64bcb2fde15296a2842e092">variable_id</a>)</td></tr>
+<tr class="memdesc:ac71ba5181761d675a86a0a50d3862e8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the <em>variable_id</em> in the <em>state_machine</em>. <br /></td></tr>
+<tr class="separator:ac71ba5181761d675a86a0a50d3862e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab500dff568d261e4b5e17a7b99362c2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab500dff568d261e4b5e17a7b99362c2d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_animation_state_machine.html#ab500dff568d261e4b5e17a7b99362c2d">set_variable</a> (StateMachineInstance state_machine, u32 <a class="el" href="structcrown_1_1_animation_state_machine.html#a842d6725a64bcb2fde15296a2842e092">variable_id</a>, f32 value)</td></tr>
+<tr class="memdesc:ab500dff568d261e4b5e17a7b99362c2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <em>value</em> of the <em>variable_id</em> in the <em>state_machine</em>. <br /></td></tr>
+<tr class="separator:ab500dff568d261e4b5e17a7b99362c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ad04cf1b45cf24342389c53beb4fd61"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ad04cf1b45cf24342389c53beb4fd61"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>trigger</b> (StateMachineInstance state_machine, <a class="el" href="structcrown_1_1_string_id32.html">StringId32</a> event)</td></tr>
+<tr class="separator:a1ad04cf1b45cf24342389c53beb4fd61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0841689c80da66c2f0e917cde6edc76"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0841689c80da66c2f0e917cde6edc76"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (float dt)</td></tr>
 <tr class="separator:ac0841689c80da66c2f0e917cde6edc76"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,7 +166,7 @@ u32&#160;</td><td class="memItemRight" valign="bottom"><b>_marker</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 24 2020 20:39:59 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2021 15:08:31 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -113,10 +113,10 @@ CameraInstance&#160;</td><td class="memItemRight" valign="bottom"><b>camera_make
 <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a20a69bb631bca10443962de49d992f02">spawn_empty_unit</a> ()</td></tr>
 <tr class="memdesc:a20a69bb631bca10443962de49d992f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spawns a new empty unit and returns its id. <br /></td></tr>
 <tr class="separator:a20a69bb631bca10443962de49d992f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7901f69df610c922b7ad8cb703064b95"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7901f69df610c922b7ad8cb703064b95"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a7901f69df610c922b7ad8cb703064b95">destroy_unit</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> id)</td></tr>
-<tr class="memdesc:a7901f69df610c922b7ad8cb703064b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the unit with the given <em>id</em>. <br /></td></tr>
-<tr class="separator:a7901f69df610c922b7ad8cb703064b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9d8c5909287e9f7a0d278d164422f66"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab9d8c5909287e9f7a0d278d164422f66"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ab9d8c5909287e9f7a0d278d164422f66">destroy_unit</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+<tr class="memdesc:ab9d8c5909287e9f7a0d278d164422f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the unit with the given <em>id</em>. <br /></td></tr>
+<tr class="separator:ab9d8c5909287e9f7a0d278d164422f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5a22ba47ad72bbc27eef7640ae5dd4b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae5a22ba47ad72bbc27eef7640ae5dd4b"></a>
 u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ae5a22ba47ad72bbc27eef7640ae5dd4b">num_units</a> () const </td></tr>
 <tr class="memdesc:ae5a22ba47ad72bbc27eef7640ae5dd4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of units in the world. <br /></td></tr>
@@ -128,77 +128,77 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 <tr class="memitem:a92c1266f57937f8e4f1905f92fe0c8bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcrown_1_1_unit_id.html">UnitId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a92c1266f57937f8e4f1905f92fe0c8bb">unit_by_name</a> (<a class="el" href="structcrown_1_1_string_id32.html">StringId32</a> name)</td></tr>
 <tr class="memdesc:a92c1266f57937f8e4f1905f92fe0c8bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the unit with the given <a class="el" href="structcrown_1_1_level.html" title="Game level. ">Level</a> Editor <em>name</em> or UNIT_INVALID if no such unit exists.  <a href="#a92c1266f57937f8e4f1905f92fe0c8bb">More...</a><br /></td></tr>
 <tr class="separator:a92c1266f57937f8e4f1905f92fe0c8bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a276705cf28c640236abcaf5e2dc11832"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a276705cf28c640236abcaf5e2dc11832"></a>
-CameraInstance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a276705cf28c640236abcaf5e2dc11832">camera_create</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> id, const <a class="el" href="structcrown_1_1_camera_desc.html">CameraDesc</a> &amp;cd, const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;tr)</td></tr>
-<tr class="memdesc:a276705cf28c640236abcaf5e2dc11832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new camera. <br /></td></tr>
-<tr class="separator:a276705cf28c640236abcaf5e2dc11832"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac845e2d7e8f51eab325bd68d712d0454"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac845e2d7e8f51eab325bd68d712d0454"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ac845e2d7e8f51eab325bd68d712d0454">camera_destroy</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, CameraInstance ci)</td></tr>
-<tr class="memdesc:ac845e2d7e8f51eab325bd68d712d0454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the camera <em>id</em>. <br /></td></tr>
-<tr class="separator:ac845e2d7e8f51eab325bd68d712d0454"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6eaeb9be52eac626b02c26b33406de8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6eaeb9be52eac626b02c26b33406de8"></a>
-CameraInstance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ab6eaeb9be52eac626b02c26b33406de8">camera_instances</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> id)</td></tr>
-<tr class="memdesc:ab6eaeb9be52eac626b02c26b33406de8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the camera owned by unit <em>id</em>. <br /></td></tr>
-<tr class="separator:ab6eaeb9be52eac626b02c26b33406de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73e29b3bcf91bf88e8f0fe7f1039d414"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73e29b3bcf91bf88e8f0fe7f1039d414"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a73e29b3bcf91bf88e8f0fe7f1039d414">camera_set_projection_type</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, ProjectionType::Enum type)</td></tr>
-<tr class="memdesc:a73e29b3bcf91bf88e8f0fe7f1039d414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the projection type of the camera. <br /></td></tr>
-<tr class="separator:a73e29b3bcf91bf88e8f0fe7f1039d414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ee53c7405b9530e2d087b7961d145db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ee53c7405b9530e2d087b7961d145db"></a>
-ProjectionType::Enum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a7ee53c7405b9530e2d087b7961d145db">camera_projection_type</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
-<tr class="memdesc:a7ee53c7405b9530e2d087b7961d145db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection type of the camera. <br /></td></tr>
-<tr class="separator:a7ee53c7405b9530e2d087b7961d145db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22fe00ecfec4537b0eb7d11845b883ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22fe00ecfec4537b0eb7d11845b883ca"></a>
-<a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a22fe00ecfec4537b0eb7d11845b883ca">camera_projection_matrix</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
-<tr class="memdesc:a22fe00ecfec4537b0eb7d11845b883ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection matrix of the camera. <br /></td></tr>
-<tr class="separator:a22fe00ecfec4537b0eb7d11845b883ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab50deebb7d6b873d61ebcfb815ee5d2b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab50deebb7d6b873d61ebcfb815ee5d2b"></a>
-<a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ab50deebb7d6b873d61ebcfb815ee5d2b">camera_view_matrix</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
-<tr class="memdesc:ab50deebb7d6b873d61ebcfb815ee5d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the view matrix of the camera. <br /></td></tr>
-<tr class="separator:ab50deebb7d6b873d61ebcfb815ee5d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19fbf3d0a36062596ed1f2112d91ca9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19fbf3d0a36062596ed1f2112d91ca9d"></a>
-f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a19fbf3d0a36062596ed1f2112d91ca9d">camera_fov</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
-<tr class="memdesc:a19fbf3d0a36062596ed1f2112d91ca9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the field-of-view of the camera in degrees. <br /></td></tr>
-<tr class="separator:a19fbf3d0a36062596ed1f2112d91ca9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a557a2fb0bd4c889cb52217fb5d1b529b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a557a2fb0bd4c889cb52217fb5d1b529b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a557a2fb0bd4c889cb52217fb5d1b529b">camera_set_fov</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, f32 fov)</td></tr>
-<tr class="memdesc:a557a2fb0bd4c889cb52217fb5d1b529b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the field-of-view of the camera in degrees. <br /></td></tr>
-<tr class="separator:a557a2fb0bd4c889cb52217fb5d1b529b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c7217105a58473cb76b5d85857dcd14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c7217105a58473cb76b5d85857dcd14"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a6c7217105a58473cb76b5d85857dcd14">camera_set_aspect</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, f32 aspect)</td></tr>
-<tr class="memdesc:a6c7217105a58473cb76b5d85857dcd14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the aspect ratio of the camera. (Perspective projection only.) <br /></td></tr>
-<tr class="separator:a6c7217105a58473cb76b5d85857dcd14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69426e5e569c6d66437db2bb83ffa38c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69426e5e569c6d66437db2bb83ffa38c"></a>
-f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a69426e5e569c6d66437db2bb83ffa38c">camera_near_clip_distance</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
-<tr class="memdesc:a69426e5e569c6d66437db2bb83ffa38c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the near clip distance of the camera. <br /></td></tr>
-<tr class="separator:a69426e5e569c6d66437db2bb83ffa38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0186d3d01608567cd05285d0a14c52"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9f0186d3d01608567cd05285d0a14c52"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a9f0186d3d01608567cd05285d0a14c52">camera_set_near_clip_distance</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, f32 near)</td></tr>
-<tr class="memdesc:a9f0186d3d01608567cd05285d0a14c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the near clip distance of the camera. <br /></td></tr>
-<tr class="separator:a9f0186d3d01608567cd05285d0a14c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad28fb60f2768d1b7d128678fa0edf750"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad28fb60f2768d1b7d128678fa0edf750"></a>
-f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ad28fb60f2768d1b7d128678fa0edf750">camera_far_clip_distance</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
-<tr class="memdesc:ad28fb60f2768d1b7d128678fa0edf750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the far clip distance of the camera. <br /></td></tr>
-<tr class="separator:ad28fb60f2768d1b7d128678fa0edf750"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06626c31064c5c97701650f01995882b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06626c31064c5c97701650f01995882b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a06626c31064c5c97701650f01995882b">camera_set_far_clip_distance</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, f32 far)</td></tr>
-<tr class="memdesc:a06626c31064c5c97701650f01995882b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the far clip distance of the camera. <br /></td></tr>
-<tr class="separator:a06626c31064c5c97701650f01995882b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ae1e225375292c97293e8e69d4e4b7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a6ae1e225375292c97293e8e69d4e4b7b">camera_set_orthographic_size</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, f32 half_size)</td></tr>
-<tr class="memdesc:a6ae1e225375292c97293e8e69d4e4b7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the vertical <em>half_size</em> of the orthographic view volume.  <a href="#a6ae1e225375292c97293e8e69d4e4b7b">More...</a><br /></td></tr>
-<tr class="separator:a6ae1e225375292c97293e8e69d4e4b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21b7c4b556d4c4d6378f0aed0c790825"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21b7c4b556d4c4d6378f0aed0c790825"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a21b7c4b556d4c4d6378f0aed0c790825">camera_set_viewport_metrics</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, u16 <a class="el" href="group___math.html#ga0782ac7cfe8d858b9df7fa9e192eb805">x</a>, u16 <a class="el" href="group___math.html#ga363fd10e945361cfc4115d6f87a2422e">y</a>, u16 width, u16 height)</td></tr>
-<tr class="memdesc:a21b7c4b556d4c4d6378f0aed0c790825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the coordinates for the camera viewport in pixels. <br /></td></tr>
-<tr class="separator:a21b7c4b556d4c4d6378f0aed0c790825"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e24e0fc3328e8951d8b8120f8787e86"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e24e0fc3328e8951d8b8120f8787e86"></a>
-<a class="el" href="structcrown_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a6e24e0fc3328e8951d8b8120f8787e86">camera_screen_to_world</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;pos)</td></tr>
-<tr class="memdesc:a6e24e0fc3328e8951d8b8120f8787e86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <em>pos</em> from screen-space to world-space coordinates. <br /></td></tr>
-<tr class="separator:a6e24e0fc3328e8951d8b8120f8787e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaff27ede79f1a4f71a80efe1f666feee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaff27ede79f1a4f71a80efe1f666feee"></a>
-<a class="el" href="structcrown_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#aaff27ede79f1a4f71a80efe1f666feee">camera_world_to_screen</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;pos)</td></tr>
-<tr class="memdesc:aaff27ede79f1a4f71a80efe1f666feee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <em>pos</em> from world-space to screen-space coordinates. <br /></td></tr>
-<tr class="separator:aaff27ede79f1a4f71a80efe1f666feee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fcc72bfde0904d1525843f6203cb631"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9fcc72bfde0904d1525843f6203cb631"></a>
+CameraInstance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a9fcc72bfde0904d1525843f6203cb631">camera_create</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, const <a class="el" href="structcrown_1_1_camera_desc.html">CameraDesc</a> &amp;cd, const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;tr)</td></tr>
+<tr class="memdesc:a9fcc72bfde0904d1525843f6203cb631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new camera. <br /></td></tr>
+<tr class="separator:a9fcc72bfde0904d1525843f6203cb631"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae456ff1ff1bd80af22925dd1081b494d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae456ff1ff1bd80af22925dd1081b494d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ae456ff1ff1bd80af22925dd1081b494d">camera_destroy</a> (CameraInstance camera)</td></tr>
+<tr class="memdesc:ae456ff1ff1bd80af22925dd1081b494d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the camera instance <em>i</em>. <br /></td></tr>
+<tr class="separator:ae456ff1ff1bd80af22925dd1081b494d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8507428107efa66743d69e53bb52e87"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8507428107efa66743d69e53bb52e87"></a>
+CameraInstance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#aa8507428107efa66743d69e53bb52e87">camera_instance</a> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+<tr class="memdesc:aa8507428107efa66743d69e53bb52e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ID of the camera owned by the <em>unit</em>. <br /></td></tr>
+<tr class="separator:aa8507428107efa66743d69e53bb52e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc4f151e6dd74443fed9aafdd830d878"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc4f151e6dd74443fed9aafdd830d878"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#afc4f151e6dd74443fed9aafdd830d878">camera_set_projection_type</a> (CameraInstance camera, ProjectionType::Enum type)</td></tr>
+<tr class="memdesc:afc4f151e6dd74443fed9aafdd830d878"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the projection type of the <em>camera</em>. <br /></td></tr>
+<tr class="separator:afc4f151e6dd74443fed9aafdd830d878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b6c18ef40bd04f654f4e0db4fa6fdea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b6c18ef40bd04f654f4e0db4fa6fdea"></a>
+ProjectionType::Enum&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a0b6c18ef40bd04f654f4e0db4fa6fdea">camera_projection_type</a> (CameraInstance camera)</td></tr>
+<tr class="memdesc:a0b6c18ef40bd04f654f4e0db4fa6fdea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection type of the <em>camera</em>. <br /></td></tr>
+<tr class="separator:a0b6c18ef40bd04f654f4e0db4fa6fdea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61a72de6921d16375e966eed51932a37"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61a72de6921d16375e966eed51932a37"></a>
+<a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a61a72de6921d16375e966eed51932a37">camera_projection_matrix</a> (CameraInstance camera)</td></tr>
+<tr class="memdesc:a61a72de6921d16375e966eed51932a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection matrix of the <em>camera</em>. <br /></td></tr>
+<tr class="separator:a61a72de6921d16375e966eed51932a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7c3406b668212008e4d333d4d0a4388"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7c3406b668212008e4d333d4d0a4388"></a>
+<a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#aa7c3406b668212008e4d333d4d0a4388">camera_view_matrix</a> (CameraInstance camera)</td></tr>
+<tr class="memdesc:aa7c3406b668212008e4d333d4d0a4388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the view matrix of the <em>camera</em>. <br /></td></tr>
+<tr class="separator:aa7c3406b668212008e4d333d4d0a4388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0017afc8472ba43d04d458463d5ecb07"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0017afc8472ba43d04d458463d5ecb07"></a>
+f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a0017afc8472ba43d04d458463d5ecb07">camera_fov</a> (CameraInstance camera)</td></tr>
+<tr class="memdesc:a0017afc8472ba43d04d458463d5ecb07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the field-of-view of the <em>camera</em> in degrees. <br /></td></tr>
+<tr class="separator:a0017afc8472ba43d04d458463d5ecb07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac649e77d75f07df9ce704506bc92cad6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac649e77d75f07df9ce704506bc92cad6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ac649e77d75f07df9ce704506bc92cad6">camera_set_fov</a> (CameraInstance camera, f32 fov)</td></tr>
+<tr class="memdesc:ac649e77d75f07df9ce704506bc92cad6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the field-of-view of the <em>camera</em> in degrees. <br /></td></tr>
+<tr class="separator:ac649e77d75f07df9ce704506bc92cad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf5977b2b457c52a44a2a3e221c74159"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf5977b2b457c52a44a2a3e221c74159"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#aaf5977b2b457c52a44a2a3e221c74159">camera_set_aspect</a> (CameraInstance camera, f32 aspect)</td></tr>
+<tr class="memdesc:aaf5977b2b457c52a44a2a3e221c74159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the aspect ratio of the <em>camera</em>. (Perspective projection only.) <br /></td></tr>
+<tr class="separator:aaf5977b2b457c52a44a2a3e221c74159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2470b1e1914d5fa3b66b21d3bbf66a9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab2470b1e1914d5fa3b66b21d3bbf66a9"></a>
+f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#ab2470b1e1914d5fa3b66b21d3bbf66a9">camera_near_clip_distance</a> (CameraInstance camera)</td></tr>
+<tr class="memdesc:ab2470b1e1914d5fa3b66b21d3bbf66a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the near clip distance of the <em>camera</em>. <br /></td></tr>
+<tr class="separator:ab2470b1e1914d5fa3b66b21d3bbf66a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc651353cf5b58c394394f61c38daad3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc651353cf5b58c394394f61c38daad3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#acc651353cf5b58c394394f61c38daad3">camera_set_near_clip_distance</a> (CameraInstance camera, f32 near)</td></tr>
+<tr class="memdesc:acc651353cf5b58c394394f61c38daad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the near clip distance of the <em>camera</em>. <br /></td></tr>
+<tr class="separator:acc651353cf5b58c394394f61c38daad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bec365924f06c949313f0c08fc9594f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2bec365924f06c949313f0c08fc9594f"></a>
+f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a2bec365924f06c949313f0c08fc9594f">camera_far_clip_distance</a> (CameraInstance camera)</td></tr>
+<tr class="memdesc:a2bec365924f06c949313f0c08fc9594f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the far clip distance of the <em>camera</em>. <br /></td></tr>
+<tr class="separator:a2bec365924f06c949313f0c08fc9594f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43017ecbe1dea52edc9e4ab44f705f86"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43017ecbe1dea52edc9e4ab44f705f86"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a43017ecbe1dea52edc9e4ab44f705f86">camera_set_far_clip_distance</a> (CameraInstance camera, f32 far)</td></tr>
+<tr class="memdesc:a43017ecbe1dea52edc9e4ab44f705f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the far clip distance of the <em>camera</em>. <br /></td></tr>
+<tr class="separator:a43017ecbe1dea52edc9e4ab44f705f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a463d5f09d230d8fb6565705b3f96b76e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a463d5f09d230d8fb6565705b3f96b76e">camera_set_orthographic_size</a> (CameraInstance camera, f32 half_size)</td></tr>
+<tr class="memdesc:a463d5f09d230d8fb6565705b3f96b76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the vertical <em>half_size</em> of the orthographic view volume.  <a href="#a463d5f09d230d8fb6565705b3f96b76e">More...</a><br /></td></tr>
+<tr class="separator:a463d5f09d230d8fb6565705b3f96b76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa63b8441a192604676d5c163b6b79d27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa63b8441a192604676d5c163b6b79d27"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#aa63b8441a192604676d5c163b6b79d27">camera_set_viewport_metrics</a> (CameraInstance camera, u16 <a class="el" href="group___math.html#ga0782ac7cfe8d858b9df7fa9e192eb805">x</a>, u16 <a class="el" href="group___math.html#ga363fd10e945361cfc4115d6f87a2422e">y</a>, u16 width, u16 height)</td></tr>
+<tr class="memdesc:aa63b8441a192604676d5c163b6b79d27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the coordinates for the <em>camera</em> viewport in pixels. <br /></td></tr>
+<tr class="separator:aa63b8441a192604676d5c163b6b79d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f565b43f6883a7d17409becfb72209b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f565b43f6883a7d17409becfb72209b"></a>
+<a class="el" href="structcrown_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#a4f565b43f6883a7d17409becfb72209b">camera_screen_to_world</a> (CameraInstance camera, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;pos)</td></tr>
+<tr class="memdesc:a4f565b43f6883a7d17409becfb72209b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <em>pos</em> from screen-space to world-space coordinates. <br /></td></tr>
+<tr class="separator:a4f565b43f6883a7d17409becfb72209b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8ae848b1ce62d96c26534b413d6be8a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8ae848b1ce62d96c26534b413d6be8a"></a>
+<a class="el" href="structcrown_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#aa8ae848b1ce62d96c26534b413d6be8a">camera_world_to_screen</a> (CameraInstance camera, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;pos)</td></tr>
+<tr class="memdesc:aa8ae848b1ce62d96c26534b413d6be8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <em>pos</em> from world-space to screen-space coordinates. <br /></td></tr>
+<tr class="separator:aa8ae848b1ce62d96c26534b413d6be8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3ccd3ff490052af75d8313ee46e5fae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3ccd3ff490052af75d8313ee46e5fae"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#aa3ccd3ff490052af75d8313ee46e5fae">update_animations</a> (f32 dt)</td></tr>
 <tr class="memdesc:aa3ccd3ff490052af75d8313ee46e5fae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update all animations with <em>dt</em>. <br /></td></tr>
@@ -263,12 +263,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 <a class="el" href="structcrown_1_1_level.html">Level</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcrown_1_1_world.html#afa65a9d06970c067a87340043993ac50">load_level</a> (<a class="el" href="structcrown_1_1_string_id64.html">StringId64</a> name, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;pos, const <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a> &amp;rot)</td></tr>
 <tr class="memdesc:afa65a9d06970c067a87340043993ac50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the level <em>name</em> into the world. <br /></td></tr>
 <tr class="separator:afa65a9d06970c067a87340043993ac50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61086a4a7aa15fb3b1e10d085a1fd502"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61086a4a7aa15fb3b1e10d085a1fd502"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>post_unit_spawned_event</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> id)</td></tr>
-<tr class="separator:a61086a4a7aa15fb3b1e10d085a1fd502"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7931759c64a503bde70d84c0d775249e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7931759c64a503bde70d84c0d775249e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>post_unit_destroyed_event</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> id)</td></tr>
-<tr class="separator:a7931759c64a503bde70d84c0d775249e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e75950f3edfbe71e02ad313e67fde0c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e75950f3edfbe71e02ad313e67fde0c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>post_unit_spawned_event</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+<tr class="separator:a9e75950f3edfbe71e02ad313e67fde0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d62424c552bb0055c403ab01a6ed49c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d62424c552bb0055c403ab01a6ed49c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>post_unit_destroyed_event</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+<tr class="separator:a2d62424c552bb0055c403ab01a6ed49c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe905bee56223f7c0ce5fa0a2577d99b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe905bee56223f7c0ce5fa0a2577d99b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>post_level_loaded_event</b> ()</td></tr>
 <tr class="separator:afe905bee56223f7c0ce5fa0a2577d99b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -364,15 +364,15 @@ u32&#160;</td><td class="memItemRight" valign="bottom"><b>_marker</b></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6ae1e225375292c97293e8e69d4e4b7b"></a>
+<a class="anchor" id="a463d5f09d230d8fb6565705b3f96b76e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void crown::World::camera_set_orthographic_size </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structcrown_1_1_unit_id.html">UnitId</a>&#160;</td>
-          <td class="paramname"><em>unit</em>, </td>
+          <td class="paramtype">CameraInstance&#160;</td>
+          <td class="paramname"><em>camera</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -501,7 +501,7 @@ u32&#160;</td><td class="memItemRight" valign="bottom"><b>_marker</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 24 2020 20:39:59 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2021 15:08:33 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

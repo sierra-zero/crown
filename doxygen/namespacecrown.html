@@ -907,6 +907,9 @@ f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group
 <tr class="memitem:ga4e7945f7048eb6d607322ec0283f564b"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga4e7945f7048eb6d607322ec0283f564b">to_string</a> (const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;v, char *buf, u32 buf_len)</td></tr>
 <tr class="memdesc:ga4e7945f7048eb6d607322ec0283f564b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representing the vector .  <a href="group___math.html#ga4e7945f7048eb6d607322ec0283f564b">More...</a><br /></td></tr>
 <tr class="separator:ga4e7945f7048eb6d607322ec0283f564b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabffcfa0796bd4fb36efa2a6e2ce8a6fa"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#gabffcfa0796bd4fb36efa2a6e2ce8a6fa">to_string</a> (const <a class="el" href="structcrown_1_1_vector4.html">Vector4</a> &amp;v, char *buf, u32 buf_len)</td></tr>
+<tr class="memdesc:gabffcfa0796bd4fb36efa2a6e2ce8a6fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representing the vector .  <a href="group___math.html#gabffcfa0796bd4fb36efa2a6e2ce8a6fa">More...</a><br /></td></tr>
+<tr class="separator:gabffcfa0796bd4fb36efa2a6e2ce8a6fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7c814b05f52345bdec90b7f3383c900f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga7c814b05f52345bdec90b7f3383c900f">to_string</a> (const <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a> &amp;q, char *buf, u32 buf_len)</td></tr>
 <tr class="memdesc:ga7c814b05f52345bdec90b7f3383c900f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representing the quaternion .  <a href="group___math.html#ga7c814b05f52345bdec90b7f3383c900f">More...</a><br /></td></tr>
 <tr class="separator:ga7c814b05f52345bdec90b7f3383c900f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1129,6 +1132,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <a class="el" href="structcrown_1_1_matrix3x3.html">Matrix3x3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga05e7950fbae8b5150c1aef2d23d1b6a7">to_matrix3x3</a> (const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;m)</td></tr>
 <tr class="memdesc:ga05e7950fbae8b5150c1aef2d23d1b6a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rotation portion of the matrix <em>m</em> as a <a class="el" href="structcrown_1_1_matrix3x3.html">Matrix3x3</a>. <br /></td></tr>
 <tr class="separator:ga05e7950fbae8b5150c1aef2d23d1b6a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84a5e85fb858c55fd2555bb2fc601440"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga84a5e85fb858c55fd2555bb2fc601440">rotation</a> (const <a class="el" href="structcrown_1_1_matrix3x3.html">Matrix3x3</a> &amp;m)</td></tr>
+<tr class="memdesc:ga84a5e85fb858c55fd2555bb2fc601440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rotation portion of the matrix <em>m</em> as a <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a>. <br /></td></tr>
+<tr class="separator:ga84a5e85fb858c55fd2555bb2fc601440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1da4c24bf1430ebdda5a7227f19a5a44"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___math.html#ga1da4c24bf1430ebdda5a7227f19a5a44">rotation</a> (const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;m)</td></tr>
 <tr class="memdesc:ga1da4c24bf1430ebdda5a7227f19a5a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rotation portion of the matrix <em>m</em> as a <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a>. <br /></td></tr>
@@ -1805,9 +1812,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <tr class="memitem:af36ca9b65d1a5f93cbfc3c29d31dc101"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af36ca9b65d1a5f93cbfc3c29d31dc101"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> &amp;a, const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> &amp;b)</td></tr>
 <tr class="separator:af36ca9b65d1a5f93cbfc3c29d31dc101"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4f0d7afef0ede87ad5e25d905e1c1ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4f0d7afef0ede87ad5e25d905e1c1ee"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>spawn_units</b> (<a class="el" href="structcrown_1_1_world.html">World</a> &amp;w, const <a class="el" href="structcrown_1_1_unit_resource.html">UnitResource</a> &amp;ur, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;pos, const <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a> &amp;rot, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;scl, const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> *unit_lookup)</td></tr>
-<tr class="separator:ab4f0d7afef0ede87ad5e25d905e1c1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2494efc68f7ab3dccf1c9a13cfdcb7f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2494efc68f7ab3dccf1c9a13cfdcb7f8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>spawn_units</b> (<a class="el" href="structcrown_1_1_world.html">World</a> &amp;w, const <a class="el" href="structcrown_1_1_unit_resource.html">UnitResource</a> *ur, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;pos, const <a class="el" href="structcrown_1_1_quaternion.html">Quaternion</a> &amp;rot, const <a class="el" href="structcrown_1_1_vector3.html">Vector3</a> &amp;scl, const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> *unit_lookup)</td></tr>
+<tr class="separator:a2494efc68f7ab3dccf1c9a13cfdcb7f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -1876,7 +1883,7 @@ const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a>&#160;</td><td
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 24 2020 20:39:59 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2021 15:08:31 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

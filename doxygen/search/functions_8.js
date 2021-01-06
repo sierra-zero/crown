@@ -4,7 +4,7 @@ var searchData=
   ['init',['init',['../namespacecrown_1_1audio__globals.html#a44bcf0553aeffd0a1a46d5c4ccb6448c',1,'crown::audio_globals::init()'],['../namespacecrown_1_1physics__globals.html#ad43baed76132fa8f741f13d6982c2868',1,'crown::physics_globals::init()']]],
   ['inputmanager',['InputManager',['../structcrown_1_1_input_manager.html#a4003459595ea113f06407832c50f078f',1,'crown::InputManager']]],
   ['insert',['insert',['../namespacecrown_1_1hash__set.html#af073db4c00ce4da4c38abcc2736a2131',1,'crown::hash_set']]],
-  ['instances',['instances',['../structcrown_1_1_scene_graph.html#ab1d6226d5772e34fd916748f3e125154',1,'crown::SceneGraph']]],
+  ['instance',['instance',['../structcrown_1_1_animation_state_machine.html#a6d6c36812117fac95f2eb114d08aa205',1,'crown::AnimationStateMachine::instance()'],['../structcrown_1_1_scene_graph.html#a4bce81ce288ec89fd5369442f8f39d44',1,'crown::SceneGraph::instance()']]],
   ['integer',['integer',['../structcrown_1_1_random.html#ab4956a161d6d6bf873ffb3430be84629',1,'crown::Random::integer()'],['../structcrown_1_1_random.html#afd852a78f53cfe80e0e0489bbc021e31',1,'crown::Random::integer(s32 max)']]],
   ['inverse',['inverse',['../group___math.html#ga9cd98e06e9e2a526e0ed4b16256b8991',1,'crown']]],
   ['invert',['invert',['../group___math.html#ga988b26d2c441fc0b7bd059e9489407a6',1,'crown::invert(Matrix3x3 &amp;m)'],['../group___math.html#ga57034b62848f95fa1b2a8dc01e04a55b',1,'crown::invert(Matrix4x4 &amp;m)']]],

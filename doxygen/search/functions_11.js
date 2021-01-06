@@ -8,7 +8,7 @@ var searchData=
   ['ray_5fplane_5fintersection',['ray_plane_intersection',['../group___math.html#ga968d9722db1b957700e89bb1ec32b8a3',1,'crown']]],
   ['ray_5fsphere_5fintersection',['ray_sphere_intersection',['../group___math.html#gaf2b6f91858fd117c1c59564d81076aa6',1,'crown']]],
   ['ray_5ftriangle_5fintersection',['ray_triangle_intersection',['../group___math.html#ga0611bb224786987a21b03b87b20e8638',1,'crown']]],
-  ['read',['read',['../structcrown_1_1_file.html#aba8b10f9cb326f04c4319eb261061d2e',1,'crown::File::read()'],['../structcrown_1_1_t_c_p_socket.html#ac751152281c78d8afa53bf80f9199429',1,'crown::TCPSocket::read()']]],
+  ['read',['read',['../structcrown_1_1_file.html#aba8b10f9cb326f04c4319eb261061d2e',1,'crown::File::read()'],['../structcrown_1_1_t_c_p_socket.html#ac751152281c78d8afa53bf80f9199429',1,'crown::TCPSocket::read()'],['../structcrown_1_1_process.html#ae45f858767d747cd4ba1ffdbf3d0f313',1,'crown::Process::read()']]],
   ['read_5fnonblock',['read_nonblock',['../structcrown_1_1_t_c_p_socket.html#aa250047ef7a3fa4f49d41dd5af322a48',1,'crown::TCPSocket']]],
   ['record_5ffloat',['record_float',['../namespacecrown_1_1profiler.html#a6010b0da2baf3016924042529a1b046c',1,'crown::profiler']]],
   ['record_5fvector3',['record_vector3',['../namespacecrown_1_1profiler.html#a13c2d80e128516bc6984954a9d8a1013',1,'crown::profiler']]],
@@ -34,7 +34,7 @@ var searchData=
   ['restore',['restore',['../structcrown_1_1_window.html#a66da1ae8f0f1e4cf51d6b250f7dfad4c',1,'crown::Window']]],
   ['resume_5fall',['resume_all',['../structcrown_1_1_sound_world.html#abba7c705239c7edee81a49b224661e1d',1,'crown::SoundWorld']]],
   ['right',['right',['../group___math.html#ga9340f3b72e9b7db6d4370d4493e33588',1,'crown']]],
-  ['rotation',['rotation',['../group___math.html#ga1da4c24bf1430ebdda5a7227f19a5a44',1,'crown']]],
+  ['rotation',['rotation',['../group___math.html#ga84a5e85fb858c55fd2555bb2fc601440',1,'crown::rotation(const Matrix3x3 &amp;m)'],['../group___math.html#ga1da4c24bf1430ebdda5a7227f19a5a44',1,'crown::rotation(const Matrix4x4 &amp;m)']]],
   ['rtrim',['rtrim',['../structcrown_1_1_dynamic_string.html#aa6de3c5f496d1423d3a82152f8cb488b',1,'crown::DynamicString']]],
   ['run',['run',['../structcrown_1_1_device.html#aa8a55464f42fa29940670268644b7cf0',1,'crown::Device::run()'],['../structcrown_1_1_resource_loader.html#abb549689b8fbd47015064d3f7c171603',1,'crown::ResourceLoader::run()'],['../namespacecrown.html#a902cd71641aa9b14b07133703010dd48',1,'crown::run()']]]
 ];

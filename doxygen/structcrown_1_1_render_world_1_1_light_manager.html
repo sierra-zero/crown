@@ -97,18 +97,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a83551664bd1a6c4047ce32f39d5d4521"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83551664bd1a6c4047ce32f39d5d4521"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>LightManager</b> (<a class="el" href="structcrown_1_1_allocator.html">Allocator</a> &amp;a)</td></tr>
 <tr class="separator:a83551664bd1a6c4047ce32f39d5d4521"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21e1b45146de4ad5aab57186920c792f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21e1b45146de4ad5aab57186920c792f"></a>
-LightInstance&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> id, const <a class="el" href="structcrown_1_1_light_desc.html">LightDesc</a> &amp;ld, const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;tr)</td></tr>
-<tr class="separator:a21e1b45146de4ad5aab57186920c792f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23997f3b63ee322e6e113d33db75b45c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23997f3b63ee322e6e113d33db75b45c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>destroy</b> (LightInstance i)</td></tr>
-<tr class="separator:a23997f3b63ee322e6e113d33db75b45c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6c22c80975b51622a773cfd84c329f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6c22c80975b51622a773cfd84c329f6"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>has</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> id)</td></tr>
-<tr class="separator:ae6c22c80975b51622a773cfd84c329f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82399525ecc08d5c5a5b181b01be6b3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82399525ecc08d5c5a5b181b01be6b3b"></a>
-LightInstance&#160;</td><td class="memItemRight" valign="bottom"><b>light</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> id)</td></tr>
-<tr class="separator:a82399525ecc08d5c5a5b181b01be6b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31fef1c4f3958d1d7f4517b158c15d63"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31fef1c4f3958d1d7f4517b158c15d63"></a>
+LightInstance&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit, const <a class="el" href="structcrown_1_1_light_desc.html">LightDesc</a> &amp;ld, const <a class="el" href="structcrown_1_1_matrix4x4.html">Matrix4x4</a> &amp;tr)</td></tr>
+<tr class="separator:a31fef1c4f3958d1d7f4517b158c15d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6867fd1b58bb85f31e6dfb140cf01e4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6867fd1b58bb85f31e6dfb140cf01e4a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>destroy</b> (LightInstance light)</td></tr>
+<tr class="separator:a6867fd1b58bb85f31e6dfb140cf01e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60acc4dd25701e81f43e51fd83106258"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a60acc4dd25701e81f43e51fd83106258"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>has</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+<tr class="separator:a60acc4dd25701e81f43e51fd83106258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe3ee021b904e9c807213a8941b97ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abbe3ee021b904e9c807213a8941b97ac"></a>
+LightInstance&#160;</td><td class="memItemRight" valign="bottom"><b>light</b> (<a class="el" href="structcrown_1_1_unit_id.html">UnitId</a> unit)</td></tr>
+<tr class="separator:abbe3ee021b904e9c807213a8941b97ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a442f3e2ea9b398edf79009f0b237e3b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a442f3e2ea9b398edf79009f0b237e3b0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>debug_draw</b> (u32 start_index, u32 num, <a class="el" href="structcrown_1_1_debug_line.html">DebugLine</a> &amp;dl)</td></tr>
 <tr class="separator:a442f3e2ea9b398edf79009f0b237e3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,7 +144,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 24 2020 20:39:59 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 6 2021 15:08:32 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
