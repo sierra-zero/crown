@@ -544,6 +544,11 @@ public class LevelEditorApplication : Gtk.Application
 			win.set_default_size(WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT);
 			win.add(_main_stack);
 
+			_editor_pane.set_position(210);
+			_content_pane.set_position(250);
+			_inspector_pane.set_position(WINDOW_DEFAULT_HEIGHT - 200);
+			_main_pane.set_position(WINDOW_DEFAULT_WIDTH - 375);
+
 			try
 			{
 				win.icon = IconTheme.get_default().load_icon("pepper", 48, 0);
@@ -671,6 +676,7 @@ public class LevelEditorApplication : Gtk.Application
 
 	private void on_message_received(ConsoleClient client, uint8[] json)
 	{
+		// stdout.printf("%.*s\n", json.length, json);
 		Hashtable msg = JSON.decode(json) as Hashtable;
 		string msg_type = msg["type"] as string;
 

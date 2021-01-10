@@ -289,6 +289,13 @@ namespace LevelEditorApi
 			);
 	}
 
+	public string destroy_sprite_component(Guid id, Guid component_id)
+	{
+		return "LevelEditor:destroy_sprite_component(\"%s\", \"%s\")".printf(id.to_string()
+			, component_id.to_string()
+			);
+	}
+
 	public string move_object(Guid id, Vector3 pos, Quaternion rot, Vector3 scl)
 	{
 		return @"LevelEditor:move_object(\"%s\", %s, %s, %s)".printf(id.to_string()

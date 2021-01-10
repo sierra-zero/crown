@@ -670,7 +670,9 @@ public class PropertiesView : Gtk.Bin
 {
 	public struct ComponentEntry
 	{
-		string type;
+		string object_type;
+		string data_label;
+		string data_type;
 		int position;
 	}
 
@@ -686,6 +688,8 @@ public class PropertiesView : Gtk.Bin
 	private Gtk.ScrolledWindow _scrolled_window;
 	private Gtk.Box _components_vbox;
 	private Gtk.Widget _current_widget;
+	private Gtk.Menu _add_components_menu;
+	private Guid _object;
 
 	public PropertiesView(Level level, ProjectStore store)
 	{
@@ -696,35 +700,76 @@ public class PropertiesView : Gtk.Bin
 		_expanders = new HashMap<string, Gtk.Expander>();
 		_components = new HashMap<string, ComponentView>();
 		_entries = new ArrayList<ComponentEntry?>();
+		_add_components_menu = new Gtk.Menu();
+		_object = GUID_ZERO;
 
-		// Widgets
-		_components_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-		_components_vbox.margin_bottom = 18;
+		// Components header
+		Gtk.Box main_hbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+		Gtk.Label label_components = new Gtk.Label(null);
+		label_components.set_markup("<b>Components</b>");
+		label_components.set_alignment(0.0f, 0.5f);
+		main_hbox.pack_start(label_components, false, false, 0);
+		Gtk.Button button_add_component = new Gtk.Button.from_icon_name("list-add-symbolic");
+		button_add_component.get_style_context().add_class("flat");
+		button_add_component.set_halign(Gtk.Align.CENTER);
+		button_add_component.set_valign(Gtk.Align.CENTER);
+		button_add_component.set_margin_end(12);
+		button_add_component.clicked.connect(() => {
+			_add_components_menu.show_all();
+			_add_components_menu.popup(null, null, null, 0, Gtk.get_current_event_time());
+		});
+		main_hbox.pack_end(button_add_component, false, false, 0);
+		Gtk.Box main_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+		main_vbox.pack_start(main_hbox, false, false, 0);
 
-		// Unit
-		add_component_view("Unit",                    "name",                    0, new UnitView(_level));
-		add_component_view("Transform",               "transform",               0, new TransformComponentView(_level));
-		add_component_view("Light",                   "light",                   1, new LightComponentView(_level));
-		add_component_view("Camera",                  "camera",                  2, new CameraComponentView(_level));
-		add_component_view("Mesh Renderer",           "mesh_renderer",           3, new MeshRendererComponentView(_level, store));
-		add_component_view("Sprite Renderer",         "sprite_renderer",         3, new SpriteRendererComponentView(_level, store));
-		add_component_view("Collider",                "collider",                3, new ColliderComponentView(_level, store));
-		add_component_view("Actor",                   "actor",                   3, new ActorComponentView(_level));
-		add_component_view("Script",                  "script",                  3, new ScriptComponentView(_level, store));
-		add_component_view("Animation State Machine", "animation_state_machine", 3, new AnimationStateMachine(_level, store));
+		// Unit generic data
+		add_component_view("unit", "Unit", "name", 0, new UnitView(_level));
 
-		// Sound
-		add_component_view("Transform", "sound_transform",  0, new SoundTransformView(_level));
-		add_component_view("Sound",     "sound_properties", 1, new SoundView(_level, store));
+		// Unit component data
+		add_component_view("component", "Transform",               "transform",               0, new TransformComponentView(_level));
+		add_component_view("component", "Light",                   "light",                   1, new LightComponentView(_level));
+		add_component_view("component", "Camera",                  "camera",                  2, new CameraComponentView(_level));
+		add_component_view("component", "Mesh Renderer",           "mesh_renderer",           3, new MeshRendererComponentView(_level, store));
+		add_component_view("component", "Sprite Renderer",         "sprite_renderer",         3, new SpriteRendererComponentView(_level, store));
+		add_component_view("component", "Collider",                "collider",                3, new ColliderComponentView(_level, store));
+		add_component_view("component", "Actor",                   "actor",                   3, new ActorComponentView(_level));
+		add_component_view("component", "Script",                  "script",                  3, new ScriptComponentView(_level, store));
+		add_component_view("component", "Animation State Machine", "animation_state_machine", 3, new AnimationStateMachine(_level, store));
+
+		// Sound data
+		add_component_view("sound", "Transform", "sound_transform",  0, new SoundTransformView(_level));
+		add_component_view("sound", "Sound",     "sound_properties", 1, new SoundView(_level, store));
 
 		_entries.sort((a, b) => { return (a.position < b.position ? -1 : 1); });
+
+		// Components
+		_components_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+		_components_vbox.margin_bottom = 18;
 		foreach (var entry in _entries)
-			_components_vbox.pack_start(_expanders[entry.type], false, true, 0);
+		{
+			// Add component expander
+			_components_vbox.pack_start(_expanders[entry.data_type], false, true, 0);
+
+			// Add Unit component menu entry
+			if (entry.object_type == "component")
+			{
+				Gtk.MenuItem mi;
+				mi = new Gtk.MenuItem.with_label(entry.data_label);
+				mi.activate.connect(() => {
+					Unit unit = new Unit(_level._db, _object, _level._prefabs);
+					unit.add_component(entry.data_type);
+					_level.selection_changed(_level._selection); // HACK
+				});
+				_add_components_menu.add(mi);
+			}
+		}
+
+		main_vbox.pack_start(_components_vbox, false, false, 0);
 
 		_nothing_to_show = new Gtk.Label("Nothing to show");
 
 		_viewport = new Gtk.Viewport(null, null);
-		_viewport.add(_components_vbox);
+		_viewport.add(main_vbox);
 
 		_scrolled_window = new Gtk.ScrolledWindow(null, null);
 		_scrolled_window.add(_viewport);
@@ -735,22 +780,44 @@ public class PropertiesView : Gtk.Bin
 		this.set_current_widget(_nothing_to_show);
 	}
 
-	private void add_component_view(string label, string component_type, int position, ComponentView cv)
+	private void add_component_view(string object_type, string label, string component_type, int position, ComponentView cv)
 	{
 		Gtk.Label lb = new Gtk.Label(null);
 		lb.set_markup("<b>%s</b>".printf(label));
 		lb.set_alignment(0.0f, 0.5f);
 
+		// Component view expander
 		Gtk.Expander expander = new Gtk.Expander("");
 		expander.label_widget = lb;
 		expander.child = cv;
 		expander.expanded = true;
 		expander.margin_end = 12;
+		expander.button_press_event.connect((ev) => {
+			if (ev.button == Gdk.BUTTON_SECONDARY)
+			{
+				Gtk.Menu menu = new Gtk.Menu();
+				Gtk.MenuItem mi;
+
+				mi = new Gtk.MenuItem.with_label("Delete");
+				mi.activate.connect(() => {
+					_level.delete_sprite_renderer(cv._id, cv._component_id);
+					_level.selection_changed(_level._selection); // HACK to update PropertiesView
+				});
+				menu.add(mi);
+
+				menu.show_all();
+				menu.popup(null, null, null, 0, Gtk.get_current_event_time());
+
+				return Gdk.EVENT_STOP;
+			}
+
+			return Gdk.EVENT_PROPAGATE;
+		});
 
 		_components[component_type] = cv;
 		_expanders[component_type] = expander;
 
-		_entries.add({ component_type, position });
+		_entries.add({ object_type, label, component_type, position });
 	}
 
 	private void set_current_widget(Gtk.Widget w)
@@ -778,6 +845,7 @@ public class PropertiesView : Gtk.Bin
 		}
 
 		Guid id = selection[selection.size - 1];
+		_object = id;
 
 		if (_level.is_unit(id))
 		{
@@ -785,13 +853,13 @@ public class PropertiesView : Gtk.Bin
 
 			foreach (var entry in _entries)
 			{
-				Gtk.Expander expander = _expanders[entry.type];
+				Gtk.Expander expander = _expanders[entry.data_type];
 
 				Unit unit = new Unit(_level._db, id, _level._prefabs);
 				Guid component_id;
-				if (unit.has_component(out component_id, entry.type) || entry.type == "name")
+				if (unit.has_component(out component_id, entry.data_type) || entry.data_type == "name")
 				{
-					ComponentView cv = _components[entry.type];
+					ComponentView cv = _components[entry.data_type];
 					cv._id = id;
 					cv._component_id = component_id;
 					cv.update();
@@ -809,11 +877,11 @@ public class PropertiesView : Gtk.Bin
 
 			foreach (var entry in _entries)
 			{
-				Gtk.Expander expander = _expanders[entry.type];
+				Gtk.Expander expander = _expanders[entry.data_type];
 
-				if (entry.type == "sound_transform" || entry.type == "sound_properties")
+				if (entry.data_type == "sound_transform" || entry.data_type == "sound_properties")
 				{
-					ComponentView cv = _components[entry.type];
+					ComponentView cv = _components[entry.data_type];
 					cv._id = id;
 					cv.update();
 					expander.show_all();

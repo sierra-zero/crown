@@ -346,6 +346,18 @@ public class Level
 		_client.send_script(LevelEditorApi.set_sprite(unit_id, material, layer, depth, visible));
 	}
 
+	public void delete_sprite_renderer(Guid unit_id, Guid component_id)
+	{
+		_db.add_restore_point((int)ActionType.DELETE_SPRITE_RENDERER, new Guid[] { unit_id });
+
+		Unit unit = new Unit(_db, unit_id, _prefabs);
+		unit.remove_component(component_id);
+
+		stdout.printf("%s\n", unit_id.to_string());
+		stdout.printf("%s\n", component_id.to_string());
+		_client.send_script(LevelEditorApi.destroy_sprite_component(unit_id, component_id));
+	}
+
 	public void set_camera(Guid unit_id, Guid component_id, string projection, double fov, double near_range, double far_range)
 	{
 		_db.add_restore_point((int)ActionType.SET_CAMERA, new Guid[] { unit_id });
@@ -523,6 +535,8 @@ public class Level
 	{
 		if (_loaded_prefabs.contains(name))
 			return;
+
+		stdout.printf("loading prefab: %s\n", name);
 
 		Database prefab_db = new Database();
 
@@ -822,6 +836,35 @@ public class Level
 				_client.send_script(LevelEditorApi.set_sound_range(sound_id
 					, _db.get_property_double(sound_id, "range")
 					));
+				// FIXME: Hack to force update the properties view
+				selection_changed(_selection);
+			}
+			break;
+
+		case (int)ActionType.DELETE_SPRITE_RENDERER:
+			{
+				Guid unit_id = data[0];
+
+				Unit unit = new Unit(_db, unit_id, _prefabs);
+				Guid component_id;
+				unit.has_component(out component_id, "sprite_renderer");
+
+				if (undo)
+				{
+					_client.send_script(LevelEditorApi.add_sprite_component(unit_id
+						, component_id
+						, unit.get_component_property_string(component_id, "data.sprite_resource")
+						, unit.get_component_property_string(component_id, "data.material")
+						, unit.get_component_property_double(component_id, "data.layer")
+						, unit.get_component_property_double(component_id, "data.depth")
+						, unit.get_component_property_bool  (component_id, "data.visible")
+						));
+				}
+				else
+				{
+					_client.send_script(LevelEditorApi.destroy_sprite_component(unit_id, component_id));
+				}
+
 				// FIXME: Hack to force update the properties view
 				selection_changed(_selection);
 			}

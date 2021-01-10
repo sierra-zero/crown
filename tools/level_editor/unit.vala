@@ -306,9 +306,54 @@ public class Unit
 		return Unit.has_component_static(out component_id, component_type, _db, _prefabs, _unit);
 	}
 
+	public void add_component(string component_type)
+	{
+		Guid component_id;
+		if (has_component(out component_id, component_type))
+			return;
+
+		component_id = Guid.new_guid();
+
+		if (component_type == "transform")
+		{
+			_db.create(component_id);
+			set_component_property_vector3   (component_id, "data.position", VECTOR3_ZERO);
+			set_component_property_quaternion(component_id, "data.rotation", QUATERNION_IDENTITY);
+			set_component_property_vector3   (component_id, "data.scale", VECTOR3_ONE);
+			set_component_property_string    (component_id, "type", component_type);
+			_db.add_to_set(_unit, "components", component_id);
+		}
+		else if (component_type == "sprite_renderer")
+		{
+			_db.create(component_id);
+			set_component_property_double(component_id, "data.layer", 0);
+			set_component_property_double(component_id, "data.depth", 0);
+			set_component_property_string(component_id, "data.material", "units/soldier");
+			set_component_property_string(component_id, "data.sprite_resource", "units/soldier");
+			set_component_property_bool  (component_id, "data.visible", true);
+			set_component_property_string(component_id, "type", component_type);
+			_db.add_to_set(_unit, "components", component_id);
+		}
+		else if (component_type == "script")
+		{
+			_db.create(component_id);
+			set_component_property_string(component_id, "data.script_resource", "");
+			set_component_property_string(component_id, "type", component_type);
+			_db.add_to_set(_unit, "components", component_id);
+		}
+	}
+
 	public void remove_component(Guid component_id)
 	{
-		_db.remove_from_set(GUID_ZERO, "components", component_id);
+		// Search in components
+		Value? components = _db.get_property(_unit, "components");
+		if (components != null && ((HashSet<Guid?>)components).contains(component_id))
+		{
+			_db.remove_from_set(_unit, "components", component_id);
+			return;
+		}
+
+		_db.set_property_string(_unit, "deleted_components.#" + component_id.to_string(), "");
 	}
 
 	/// Returns whether the unit has a prefab.
