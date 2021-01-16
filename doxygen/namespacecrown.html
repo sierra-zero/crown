@@ -1789,6 +1789,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecrown.html#af1fde5607ebbc33a17e22d5e610ee91d">destination_path</a> (<a class="el" href="structcrown_1_1_dynamic_string.html">DynamicString</a> &amp;path, <a class="el" href="structcrown_1_1_string_id64.html">ResourceId</a> id)</td></tr>
 <tr class="memdesc:af1fde5607ebbc33a17e22d5e610ee91d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the destination <em>path</em> of the resource <em>id</em>. <br /></td></tr>
 <tr class="separator:af1fde5607ebbc33a17e22d5e610ee91d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9abdadbea3b0214f19521a69ac2aa0f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9abdadbea3b0214f19521a69ac2aa0f7"></a>
+const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecrown.html#a9abdadbea3b0214f19521a69ac2aa0f7">resource_type</a> (const char *path)</td></tr>
+<tr class="memdesc:a9abdadbea3b0214f19521a69ac2aa0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of the resource <em>path</em>. <br /></td></tr>
+<tr class="separator:a9abdadbea3b0214f19521a69ac2aa0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada2a30b808000e974fc64d0c9c32b36c"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecrown.html#ada2a30b808000e974fc64d0c9c32b36c">resource_name_length</a> (const char *type, const char *path)</td></tr>
+<tr class="memdesc:ada2a30b808000e974fc64d0c9c32b36c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the resource name length of <em>path</em>.  <a href="#ada2a30b808000e974fc64d0c9c32b36c">More...</a><br /></td></tr>
+<tr class="separator:ada2a30b808000e974fc64d0c9c32b36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7c669432a6b69a1a7b2c478d17367a8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7c669432a6b69a1a7b2c478d17367a8"></a>
 <a class="el" href="structcrown_1_1_string_id64.html">ResourceId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecrown.html#aa7c669432a6b69a1a7b2c478d17367a8">resource_id</a> (<a class="el" href="structcrown_1_1_string_id64.html">StringId64</a> type, <a class="el" href="structcrown_1_1_string_id64.html">StringId64</a> name)</td></tr>
 <tr class="memdesc:aa7c669432a6b69a1a7b2c478d17367a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the resource id from <em>type</em> and <em>name</em>. <br /></td></tr>
@@ -1880,10 +1887,48 @@ const <a class="el" href="structcrown_1_1_unit_id.html">UnitId</a>&#160;</td><td
 
 </div>
 </div>
+<a class="anchor" id="ada2a30b808000e974fc64d0c9c32b36c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 crown::resource_name_length </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the resource name length of <em>path</em>. </p>
+<p>You must also pass the resource <em>type</em> of <em>path</em> as returned by a previous call to resource_type(<em>path</em>).</p>
+<p>The resource name always starts at the beginning of <em>path</em>. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 6 2021 15:08:31 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 16 2021 16:08:55 for Crown by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -29,6 +29,8 @@ var searchData=
   ['resize',['resize',['../structcrown_1_1_window.html#a2e0c84cdf44dca7c5a54d06d57773be0',1,'crown::Window::resize()'],['../namespacecrown_1_1array.html#aab67eb96e4f6e26ece77b81a57637de9',1,'crown::array::resize()'],['../namespacecrown_1_1vector.html#a9e29ab2ec5090b1a5156599e61d74d68',1,'crown::vector::resize()']]],
   ['resolution',['resolution',['../structcrown_1_1_device.html#a42944015e4989ccafcad7730ce9d3f91',1,'crown::Device']]],
   ['resource_5fid',['resource_id',['../namespacecrown.html#a6509011253d5230b57e257f384b6382c',1,'crown::resource_id(const char *path)'],['../namespacecrown.html#aa7c669432a6b69a1a7b2c478d17367a8',1,'crown::resource_id(StringId64 type, StringId64 name)'],['../namespacecrown.html#a62d2bcb84281519ad208de4bc88f2a64',1,'crown::resource_id(const char *type, u32 type_len, const char *name, u32 name_len)']]],
+  ['resource_5fname_5flength',['resource_name_length',['../namespacecrown.html#ada2a30b808000e974fc64d0c9c32b36c',1,'crown']]],
+  ['resource_5ftype',['resource_type',['../namespacecrown.html#a9abdadbea3b0214f19521a69ac2aa0f7',1,'crown']]],
   ['resourceloader',['ResourceLoader',['../structcrown_1_1_resource_loader.html#a4d34528cac9d5ad5f20e36935810a1b9',1,'crown::ResourceLoader']]],
   ['resourcemanager',['ResourceManager',['../structcrown_1_1_resource_manager.html#a3e117a0d3466aa31e8e587783d803aca',1,'crown::ResourceManager']]],
   ['restore',['restore',['../structcrown_1_1_window.html#a66da1ae8f0f1e4cf51d6b250f7dfad4c',1,'crown::Window']]],
