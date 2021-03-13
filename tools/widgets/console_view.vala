@@ -82,14 +82,18 @@ public class ConsoleView : Gtk.Box
 	public EntryHistory _entry_history;
 	public uint _distance;
 	public Project _project;
+	public PreferencesDialog _preferences_dialog;
 
 	// Widgets
-	public Gtk.ScrolledWindow _scrolled_window;
+	public Gdk.Cursor _text_cursor;
+	public Gdk.Cursor _pointer_cursor;
+	public bool _cursor_is_hovering_link;
 	public Gtk.TextView _text_view;
+	public Gtk.ScrolledWindow _scrolled_window;
 	public EntryText _entry;
 	public Gtk.Box _entry_hbox;
 
-	public ConsoleView(Project project, Gtk.ComboBoxText combo)
+	public ConsoleView(Project project, Gtk.ComboBoxText combo, PreferencesDialog preferences_dialog)
 	{
 		Object(orientation: Gtk.Orientation.VERTICAL, spacing: 0);
 
@@ -97,8 +101,13 @@ public class ConsoleView : Gtk.Box
 		_entry_history = new EntryHistory(256);
 		_distance = 0;
 		_project = project;
+		_preferences_dialog = preferences_dialog;
 
 		// Widgets
+		_text_cursor = new Gdk.Cursor.from_name(this.get_display(), "text");
+		_pointer_cursor = new Gdk.Cursor.from_name(this.get_display(), "pointer");
+		_cursor_is_hovering_link = false;
+
 		_text_view = new Gtk.TextView();
 		_text_view.editable = false;
 		_text_view.can_focus = false;
@@ -131,8 +140,13 @@ public class ConsoleView : Gtk.Box
 		this.pack_start(_entry_hbox, false, true, 0);
 
 		this.show.connect(on_show);
+		this.destroy.connect(on_destroy);
+		this.button_release_event.connect(on_button_released);
+		this.motion_notify_event.connect(on_motion_notify);
 
 		this.get_style_context().add_class("console-view");
+
+		_console_view_valid = true;
 	}
 
 	private void on_entry_activated()
@@ -204,27 +218,173 @@ public class ConsoleView : Gtk.Box
 		_entry.grab_focus_without_selecting();
 	}
 
-	public void log(string severity, string message)
+	private void on_destroy()
 	{
-		string line = message;
+		_console_view_valid = false;
+	}
 
-		// Replace IDs with human-readable names
-		int id_index = message.index_of("#ID(");
-		if (id_index != -1)
+	private bool on_button_released(Gdk.EventButton ev)
+	{
+		if (ev.button == Gdk.BUTTON_PRIMARY)
 		{
-			string id = message.substring(id_index + 4, 16);
-			string name = _project.id_to_name(id);
-			line = message.replace("#ID(%s)".printf(id), "'%s'".printf(name));
+			// Do not handle click if some text is selected.
+			Gtk.TextIter dummy_iter;
+			if (_text_view.buffer.get_selection_bounds(out dummy_iter, out dummy_iter))
+				return Gdk.EVENT_PROPAGATE;
+
+			int buffer_x;
+			int buffer_y;
+			_text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET
+				, (int)ev.x
+				, (int)ev.y
+				, out buffer_x
+				, out buffer_y
+				);
+
+			Gtk.TextIter iter;
+			if (_text_view.get_iter_at_location(out iter, buffer_x, buffer_y))
+			{
+				// Check whether the text under the mouse pointer has a link tag.
+				GLib.SList<unowned TextTag> tags = iter.get_tags();
+				foreach (var item in tags)
+				{
+					string resource_name = item.get_data<string>("resource_name");
+					if (resource_name != null)
+					{
+						Gtk.Application app = ((Gtk.Window)this.get_toplevel()).application;
+						app.activate_action("open-resource", new GLib.Variant.string(resource_name));
+					}
+				}
+			}
 		}
 
+		return Gdk.EVENT_PROPAGATE;
+	}
+
+	private bool on_motion_notify(Gdk.EventMotion ev)
+	{
+		bool hovering = false;
+
+		int buffer_x;
+		int buffer_y;
+		_text_view.window_to_buffer_coords(TextWindowType.WIDGET
+			, (int)ev.x
+			, (int)ev.y
+			, out buffer_x
+			, out buffer_y
+			);
+
+		Gtk.TextIter iter;
+		if (_text_view.get_iter_at_location(out iter, buffer_x, buffer_y))
+		{
+			// Check whether the text under the mouse pointer has a link tag.
+			GLib.SList<unowned TextTag> tags = iter.get_tags();
+			foreach (var item in tags)
+			{
+				string resource_name = item.get_data<string>("resource_name");
+				if (resource_name != null)
+				{
+					hovering = true;
+				}
+			}
+		}
+
+		if (_cursor_is_hovering_link != hovering)
+		{
+			_cursor_is_hovering_link = hovering;
+
+			if (_cursor_is_hovering_link)
+				_text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(_pointer_cursor);
+			else
+				_text_view.get_window(Gtk.TextWindowType.TEXT).set_cursor(_text_cursor);
+		}
+
+		return Gdk.EVENT_PROPAGATE;
+	}
+
+	public void log(string severity, string message)
+	{
 		Gtk.TextBuffer buffer = _text_view.buffer;
+
+		// Limit number of lines recorded.
+		int max_lines = (int)_preferences_dialog._console_max_lines.value;
+		if (buffer.get_line_count()-1 >= max_lines)
+		{
+			Gtk.TextIter start_of_first_line;
+			buffer.get_iter_at_line(out start_of_first_line, 0);
+			Gtk.TextIter end_of_first_line = start_of_first_line;
+			start_of_first_line.forward_line();
+			buffer.delete(ref start_of_first_line, ref end_of_first_line);
+		}
+
 		Gtk.TextIter end_iter;
 		buffer.get_end_iter(out end_iter);
-		buffer.insert(ref end_iter, line, line.length);
-		end_iter.backward_chars(line.length);
-		Gtk.TextIter start_iter = end_iter;
+
+		// Replace all IDs with corresponding human-readable names.
+		int id_index = 0;
+		do
+		{
+			// Search for occurrences of the ID string.
+			int id_index_orig = id_index;
+			id_index = message.index_of("#ID(", id_index);
+			if (id_index != -1)
+			{
+				// If an occurrenct is found, insert the preceding text as usual.
+				string line_chunk = message.substring(id_index_orig, id_index-id_index_orig);
+				buffer.insert_with_tags(ref end_iter
+					, line_chunk
+					, line_chunk.length
+					, buffer.tag_table.lookup(severity)
+					, null
+					);
+
+				// Try to extract the ID from the ID string.
+				int id_closing_parentheses = message.index_of(")", id_index+4);
+				if (id_closing_parentheses == -1)
+				{
+					// If the ID is malformed, insert the whole line as-is.
+					buffer.insert_with_tags(ref end_iter
+						, message.substring(id_index)
+						, -1
+						, buffer.tag_table.lookup(severity)
+						, null
+						);
+					break;
+				}
+
+				// Convert the resource ID to human-readable resource name.
+				string resource_name;
+				string resource_id = message.substring(id_index+4, id_closing_parentheses-(id_index+4));
+				_project.resource_id_to_name(out resource_name, resource_id);
+				// Create a tag for hyperlink.
+				Gtk.TextTag hyperlink = null;
+				hyperlink = buffer.create_tag(null, "underline", Pango.Underline.SINGLE, null);
+				hyperlink.set_data("resource_name", resource_name);
+
+				buffer.insert_with_tags(ref end_iter
+					, resource_name
+					, -1
+					, buffer.tag_table.lookup(severity)
+					, hyperlink
+					, null
+					);
+				id_index += 4 + resource_id.length;
+				continue;
+			}
+			else
+			{
+				buffer.insert_with_tags(ref end_iter
+					, message.substring(id_index_orig)
+					, -1
+					, buffer.tag_table.lookup(severity)
+					, null
+					);
+			}
+		}
+		while (id_index++ >= 0);
+
+		// Scroll to bottom.
 		buffer.get_end_iter(out end_iter);
-		buffer.apply_tag(buffer.tag_table.lookup(severity), start_iter, end_iter);
 		_text_view.scroll_to_mark(buffer.create_mark("bottom", end_iter, false), 0, true, 0.0, 1.0);
 	}
 }

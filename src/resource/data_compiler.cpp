@@ -268,24 +268,20 @@ static Buffer read(FilesystemDisk& data_fs, const char* filename)
 {
 	Buffer buffer(default_allocator());
 
-	// FIXME: better return NULL in Filesystem::open().
-	if (data_fs.exists(filename))
+	File* file = data_fs.open(filename, FileOpenMode::READ);
+	if (file->is_open())
 	{
-		File* file = data_fs.open(filename, FileOpenMode::READ);
-		if (file)
+		u32 size = file->size();
+		if (size == 0)
 		{
-			u32 size = file->size();
-			if (size == 0)
-			{
-				data_fs.close(*file);
-				return buffer;
-			}
-
-			array::resize(buffer, size);
-			file->read(array::begin(buffer), size);
 			data_fs.close(*file);
+			return buffer;
 		}
+
+		array::resize(buffer, size);
+		file->read(array::begin(buffer), size);
 	}
+	data_fs.close(*file);
 
 	return buffer;
 }
@@ -455,7 +451,7 @@ static void write_data_index(FilesystemDisk& data_fs, const char* filename, cons
 	StringStream ss(default_allocator());
 
 	File* file = data_fs.open(filename, FileOpenMode::WRITE);
-	if (file)
+	if (file->is_open())
 	{
 		auto cur = hash_map::begin(index);
 		auto end = hash_map::end(index);
@@ -470,8 +466,8 @@ static void write_data_index(FilesystemDisk& data_fs, const char* filename, cons
 		}
 
 		file->write(string_stream::c_str(ss), strlen32(string_stream::c_str(ss)));
-		data_fs.close(*file);
 	}
+	data_fs.close(*file);
 }
 
 static void write_data_versions(FilesystemDisk& data_fs, const char* filename, const HashMap<DynamicString, u32>& versions)
@@ -479,7 +475,7 @@ static void write_data_versions(FilesystemDisk& data_fs, const char* filename, c
 	StringStream ss(default_allocator());
 
 	File* file = data_fs.open(filename, FileOpenMode::WRITE);
-	if (file)
+	if (file->is_open())
 	{
 
 		auto cur = hash_map::begin(versions);
@@ -492,8 +488,8 @@ static void write_data_versions(FilesystemDisk& data_fs, const char* filename, c
 		}
 
 		file->write(string_stream::c_str(ss), strlen32(string_stream::c_str(ss)));
-		data_fs.close(*file);
 	}
+	data_fs.close(*file);
 }
 
 static void write_data_mtimes(FilesystemDisk& data_fs, const char* filename, const HashMap<StringId64, u64>& mtimes)
@@ -501,7 +497,7 @@ static void write_data_mtimes(FilesystemDisk& data_fs, const char* filename, con
 	StringStream ss(default_allocator());
 
 	File* file = data_fs.open(filename, FileOpenMode::WRITE);
-	if (file)
+	if (file->is_open())
 	{
 
 		auto cur = hash_map::begin(mtimes);
@@ -517,8 +513,8 @@ static void write_data_mtimes(FilesystemDisk& data_fs, const char* filename, con
 		}
 
 		file->write(string_stream::c_str(ss), strlen32(string_stream::c_str(ss)));
-		data_fs.close(*file);
 	}
+	data_fs.close(*file);
 }
 
 static void write_data_dependencies(FilesystemDisk& data_fs, const char* filename, const HashMap<StringId64, DynamicString>& index, const HashMap<StringId64, HashMap<DynamicString, u32> >& dependencies, const HashMap<StringId64, HashMap<DynamicString, u32> >& requirements)
@@ -526,7 +522,7 @@ static void write_data_dependencies(FilesystemDisk& data_fs, const char* filenam
 	StringStream ss(default_allocator());
 
 	File* file = data_fs.open(filename, FileOpenMode::WRITE);
-	if (file)
+	if (file->is_open())
 	{
 		auto cur = hash_map::begin(index);
 		auto end = hash_map::end(index);
@@ -572,8 +568,8 @@ static void write_data_dependencies(FilesystemDisk& data_fs, const char* filenam
 		}
 
 		file->write(string_stream::c_str(ss), strlen32(string_stream::c_str(ss)));
-		data_fs.close(*file);
 	}
+	data_fs.close(*file);
 }
 
 DataCompiler::DataCompiler(const DeviceOptions& opts, ConsoleServer& cs)
@@ -763,14 +759,13 @@ void DataCompiler::scan_and_restore(const char* data_dir)
 
 		_source_fs.set_prefix(prefix.c_str());
 
-		if (_source_fs.exists(CROWN_DATAIGNORE))
+		File* file = _source_fs.open(CROWN_DATAIGNORE, FileOpenMode::READ);
+		if (file->is_open())
 		{
-			File& file = *_source_fs.open(CROWN_DATAIGNORE, FileOpenMode::READ);
-			const u32 size = file.size();
+			const u32 size = file->size();
 			char* data = (char*)default_allocator().allocate(size + 1);
-			file.read(data, size);
+			file->read(data, size);
 			data[size] = '\0';
-			_source_fs.close(file);
 
 			LineReader lr(data);
 
@@ -790,11 +785,12 @@ void DataCompiler::scan_and_restore(const char* data_dir)
 
 			default_allocator().deallocate(data);
 		}
+		_source_fs.close(*file);
 	}
 
 	_source_index.scan(_source_dirs);
 
-	logi(DATA_COMPILER, "Scanned data in %.2fs", time::seconds(time::now() - time_start));
+	logi(DATA_COMPILER, "Scanned data in " TIME_FMT, time::seconds(time::now() - time_start));
 
 	// Restore state from previous run
 	time_start = time::now();
@@ -806,7 +802,7 @@ void DataCompiler::scan_and_restore(const char* data_dir)
 	read_data_mtimes(_data_mtimes, data_fs, CROWN_DATA_MTIMES, _data_index);
 	read_data_dependencies(*this, data_fs, CROWN_DATA_DEPENDENCIES, _data_index);
 	read_data_versions(_data_versions, data_fs, CROWN_DATA_VERSIONS);
-	logi(DATA_COMPILER, "Restored state in %.2fs", time::seconds(time::now() - time_start));
+	logi(DATA_COMPILER, "Restored state in " TIME_FMT, time::seconds(time::now() - time_start));
 
 	if (_options->_server)
 	{
@@ -818,7 +814,7 @@ void DataCompiler::scan_and_restore(const char* data_dir)
 			, file_monitor_callback
 			, this
 			);
-		logi(DATA_COMPILER, "Started file monitor in %.2fs", time::seconds(time::now() - time_start));
+		logi(DATA_COMPILER, "Started file monitor in " TIME_FMT, time::seconds(time::now() - time_start));
 	}
 
 	// Cleanup
@@ -837,7 +833,7 @@ void DataCompiler::save(const char* data_dir)
 	write_data_mtimes(data_fs, CROWN_DATA_MTIMES, _data_mtimes);
 	write_data_dependencies(data_fs, CROWN_DATA_DEPENDENCIES, _data_index, _data_dependencies, _data_requirements);
 	write_data_versions(data_fs, CROWN_DATA_VERSIONS, _data_versions);
-	logi(DATA_COMPILER, "Saved state in %.2fs", time::seconds(time::now() - time_start));
+	logi(DATA_COMPILER, "Saved state in " TIME_FMT, time::seconds(time::now() - time_start));
 }
 
 bool DataCompiler::dependency_changed(const DynamicString& path, ResourceId id, u64 dst_mtime)
@@ -1013,7 +1009,7 @@ bool DataCompiler::compile(const char* data_dir, const char* platform)
 	for (u32 i = 0; i < vector::size(to_compile); ++i)
 	{
 		const DynamicString& path = to_compile[i];
-		logi(DATA_COMPILER, "%s", path.c_str());
+		logi(DATA_COMPILER, _options->_server ? RESOURCE_ID_FMT_STR : "%s", path.c_str());
 
 		const char* type = resource_type(path.c_str());
 		if (type == NULL || !can_compile(type))
@@ -1119,7 +1115,7 @@ bool DataCompiler::compile(const char* data_dir, const char* platform)
 		if (vector::size(to_compile))
 		{
 			_revision++;
-			logi(DATA_COMPILER, "Compiled data (rev %u) in %.2fs", _revision, time::seconds(time::now() - time_start));
+			logi(DATA_COMPILER, "Compiled data (rev %u) in " TIME_FMT, _revision, time::seconds(time::now() - time_start));
 		}
 		else
 		{

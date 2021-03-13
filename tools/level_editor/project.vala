@@ -38,6 +38,7 @@ public class Project
 	public File _level_editor_test_level;
 	public File _level_editor_test_package;
 	public string _platform;
+	public Database _database;
 	public Database _files;
 	public HashMap<string, Guid?> _map;
 	public ImporterData _all_extensions_importer_data;
@@ -51,13 +52,14 @@ public class Project
 	public signal void project_reset();
 	public signal void project_loaded();
 
-	public Project(DataCompiler dc)
+	public Project(Database db, DataCompiler dc)
 	{
 #if CROWN_PLATFORM_LINUX
 		_platform = "linux";
 #elif CROWN_PLATFORM_WINDOWS
 		_platform = "windows";
 #endif // CROWN_PLATFORM_LINUX
+		_database = db;
 		_files = new Database();
 		_map = new HashMap<string, Guid?>();
 		_all_extensions_importer_data = ImporterData();
@@ -88,6 +90,30 @@ public class Project
 		delete_garbage();
 
 		project_loaded();
+	}
+
+	/// Loads the unit @a name and all its prefabs recursively into the database.
+	public void load_unit(string name)
+	{
+		string resource_path = name + ".unit";
+
+		// If the unit is already loaded.
+		if (_database.has_property(GUID_ZERO, resource_path))
+			return;
+
+		// Try to load from toolchain directory first.
+		string path = Path.build_filename(toolchain_dir(), resource_path);
+		if (!File.new_for_path(path).query_exists())
+			path = Path.build_filename(source_dir(), resource_path);
+		if (!File.new_for_path(path).query_exists())
+			return; // Caller can query the database to check for error.
+
+		Guid prefab_id = _database.load_more(path, resource_path);
+
+		// Load all prefabs recursively, if any.
+		Value? prefab = _database.get_property(prefab_id, "prefab");
+		if (prefab != null)
+			load_unit((string)prefab);
 	}
 
 	public void set_toolchain_dir(string toolchain_dir)
@@ -342,19 +368,6 @@ public class Project
 		return file.has_prefix(_source_dir);
 	}
 
-	public void dump_test_level(Database db)
-	{
-		// Save test level to file
-		db.dump(_level_editor_test_level.get_path());
-
-		// Save temporary package to reference test level
-		ArrayList<Value?> level = new ArrayList<Value?>();
-		level.add("_level_editor_test");
-		Hashtable package = new Hashtable();
-		package["level"] = level;
-		SJSON.save(package, _level_editor_test_package.get_path());
-	}
-
 	public void delete_garbage()
 	{
 		try
@@ -368,11 +381,21 @@ public class Project
 		}
 	}
 
-	public string id_to_name(string id)
+	/// Converts the @a resource_id to its corresponding human-readable @a
+	/// resource_name. It returns true if the conversion is successful, otherwise
+	/// it returns false and sets @a resource_name to the value of @a resource_id.
+	public bool resource_id_to_name(out string resource_name, string resource_id)
 	{
 		Hashtable index = SJSON.load(Path.build_filename(_data_dir.get_path(), "data_index.sjson"));
-		Value? name = index[id];
-		return name != null ? (string)name : id;
+		Value? name = index[resource_id];
+		if (name != null)
+		{
+			resource_name = (string)name;
+			return true;
+		}
+
+		resource_name = resource_id;
+		return false;
 	}
 
 	public Database files()
@@ -611,7 +634,7 @@ public class Project
 		}
 		else
 		{
-			out_dir = destination_dir;
+			out_dir = GLib.File.new_for_path(GLib.Path.build_filename(source_dir(), destination_dir)).get_path();
 		}
 
 		Gtk.FileFilter? current_filter = src.get_filter();

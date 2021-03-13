@@ -12,6 +12,7 @@ namespace Crown
 const int WINDOW_DEFAULT_WIDTH = 1280;
 const int WINDOW_DEFAULT_HEIGHT = 720;
 const string LEVEL_EDITOR_WINDOW_TITLE = "Crown Editor";
+const string CROWN_ICON_NAME = "crown";
 
 public class LevelEditorWindow : Gtk.ApplicationWindow
 {
@@ -114,21 +115,22 @@ public class LevelEditorApplication : Gtk.Application
 	// Constants
 	private const GLib.ActionEntry[] action_entries_file =
 	{
-		//                                 parameter type
-		// name           activate()       |     state
-		// |              |                |     |
-		{ "menu-file",    null,            null, null },
-		{ "new-level",    on_new_level,    null, null },
-		{ "open-level",   on_open_level,   "s",  null },
-		{ "new-project",  on_new_project,  null, null },
-		{ "open-project", on_open_project, null, null },
-		{ "save",         on_save,         null, null },
-		{ "save-as",      on_save_as,      null, null },
-		{ "import",       on_import,       null, null },
-		{ "preferences",  on_preferences,  null, null },
-		{ "deploy",       on_deploy,       null, null },
-		{ "close",        on_close,        null, null },
-		{ "quit",         on_quit,         null, null }
+		//                                   parameter type
+		// name            activate()        |     state
+		// |               |                 |     |
+		{ "menu-file",     null,             null, null },
+		{ "new-level",     on_new_level,     null, null },
+		{ "open-level",    on_open_level,    "s",  null },
+		{ "new-project",   on_new_project,   null, null },
+		{ "open-project",  on_open_project,  null, null },
+		{ "save",          on_save,          null, null },
+		{ "save-as",       on_save_as,       null, null },
+		{ "import",        on_import,        "s",  null },
+		{ "preferences",   on_preferences,   null, null },
+		{ "deploy",        on_deploy,        null, null },
+		{ "close",         on_close,         null, null },
+		{ "quit",          on_quit,          null, null },
+		{ "open-resource", on_open_resource, "s",  null }
 	};
 
 	private const GLib.ActionEntry[] action_entries_edit =
@@ -339,15 +341,15 @@ public class LevelEditorApplication : Gtk.Application
 
 		_data_compiler = new DataCompiler(_compiler);
 
-		_project = new Project(_data_compiler);
+		_database = new Database();
+		_database.key_changed.connect(() => { update_active_window_title(); });
+
+		_project = new Project(_database, _data_compiler);
 		_project.set_toolchain_dir(_toolchain_dir.get_path());
 		_project.register_importer("Sprite", { "png" }, SpriteResource.import, 0.0);
 		_project.register_importer("Mesh", { "mesh" }, MeshResource.import, 1.0);
 		_project.register_importer("Sound", { "wav" }, SoundResource.import, 2.0);
 		_project.register_importer("Texture", { "png", "tga", "dds", "ktx", "pvr" }, TextureResource.import, 2.0);
-
-		_database = new Database();
-		_database.key_changed.connect(() => { update_active_window_title(); });
 
 		_editor = new ConsoleClient();
 		_editor.connected.connect(on_editor_connected);
@@ -385,13 +387,17 @@ public class LevelEditorApplication : Gtk.Application
 		_project_store = new ProjectStore(_project);
 
 		// Widgets
+		_preferences_dialog = new PreferencesDialog(this);
+		_preferences_dialog.set_icon_name(CROWN_ICON_NAME);
+		_preferences_dialog.delete_event.connect(() => { _preferences_dialog.hide(); return Gdk.EVENT_STOP; });
+
 		_combo = new Gtk.ComboBoxText();
 		_combo.append("editor", "Editor");
 		_combo.append("game", "Game");
 		_combo.set_active_id("editor");
 
-		_console_view = new ConsoleView(_project, _combo);
-		_project_browser = new ProjectBrowser(_project, _project_store);
+		_console_view = new ConsoleView(_project, _combo, _preferences_dialog);
+		_project_browser = new ProjectBrowser(this, _project, _project_store);
 		_level_treeview = new LevelTreeView(_database, _level);
 		_level_layers_treeview = new LevelLayersTreeView(_database, _level);
 		_properties_view = new PropertiesView(_level, _project_store);
@@ -410,10 +416,6 @@ public class LevelEditorApplication : Gtk.Application
 		_resource_popover = new Gtk.Popover(_toolbar);
 		_resource_popover.delete_event.connect(() => { _resource_popover.hide(); return Gdk.EVENT_STOP; });
 		_resource_popover.modal = true;
-
-		_preferences_dialog = new PreferencesDialog(this);
-		_preferences_dialog.set_transient_for(this.active_window);
-		_preferences_dialog.delete_event.connect(() => { _preferences_dialog.hide(); return Gdk.EVENT_STOP; });
 
 		_resource_chooser = new ResourceChooser(_project, _project_store, true);
 		_resource_chooser.resource_selected.connect(on_resource_browser_resource_selected);
@@ -550,7 +552,7 @@ public class LevelEditorApplication : Gtk.Application
 
 			try
 			{
-				win.icon = IconTheme.get_default().load_icon("pepper", 48, 0);
+				win.icon = IconTheme.get_default().load_icon(CROWN_ICON_NAME, 256, 0);
 			}
 			catch (Error e)
 			{
@@ -866,7 +868,7 @@ public class LevelEditorApplication : Gtk.Application
 		Gtk.Label label = new Gtk.Label(null);
 		label.set_markup("Data Compiler disconnected.\rTry to <a href=\"restart\">restart</a> compiler to continue.");
 		label.activate_link.connect(() => {
-			restart_backend.begin(_project.source_dir(), _level._name);
+			restart_backend.begin(_project.source_dir(), _level._name != null ? _level._name : "");
 			return true;
 		});
 
@@ -878,7 +880,7 @@ public class LevelEditorApplication : Gtk.Application
 		Gtk.Label label = new Gtk.Label(null);
 		label.set_markup("Data compilation failed.\rFix errors and <a href=\"restart\">restart</a> compiler to continue.");
 		label.activate_link.connect(() => {
-			restart_backend.begin(_project.source_dir(), _level._name);
+			restart_backend.begin(_project.source_dir(), _level._name != null ? _level._name : "");
 			return true;
 		});
 
@@ -1108,7 +1110,15 @@ public class LevelEditorApplication : Gtk.Application
 
 	private async void start_game(StartGame sg)
 	{
-		_project.dump_test_level(_database);
+		// Save test level to file
+		_database.dump(_project._level_editor_test_level.get_path(), _level._id);
+
+		// Save temporary package to reference test level
+		ArrayList<Value?> level = new ArrayList<Value?>();
+		level.add("_level_editor_test");
+		Hashtable package = new Hashtable();
+		package["level"] = level;
+		SJSON.save(package, _project._level_editor_test_package.get_path());
 
 		bool success = yield _data_compiler.compile(_project.data_dir(), _project.platform());
 		if (!success)
@@ -1308,6 +1318,9 @@ public class LevelEditorApplication : Gtk.Application
 	{
 		_level.load_empty_level();
 		_level.send_level();
+
+		// FIXME: hack to keep update_active_windo_title() working.
+		_database.key_changed(_level._id, "");
 	}
 
 	private void update_active_window_title()
@@ -1628,11 +1641,14 @@ public class LevelEditorApplication : Gtk.Application
 
 	private void on_import(GLib.SimpleAction action, GLib.Variant? param)
 	{
-		_project.import(null, this.active_window);
+		string destination_dir = param.get_string();
+		_project.import(destination_dir != "" ? destination_dir : null, this.active_window);
 	}
 
 	private void on_preferences(GLib.SimpleAction action, GLib.Variant? param)
 	{
+		_preferences_dialog.set_transient_for(this.active_window);
+		_preferences_dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
 		_preferences_dialog.show_all();
 	}
 
@@ -1691,6 +1707,34 @@ public class LevelEditorApplication : Gtk.Application
 	private void on_quit(GLib.SimpleAction action, GLib.Variant? param)
 	{
 		this.active_window.close();
+	}
+
+	private void on_open_resource(GLib.SimpleAction action, GLib.Variant? param)
+	{
+		string resource_name = param.get_string();
+
+		string? type = Crown.resource_type(resource_name);
+		if (type != null && type == "level")
+		{
+			string? name = Crown.resource_name(type, resource_name);
+			if (name != null)
+				activate_action("open-level", name);
+		}
+		else
+		{
+			try
+			{
+				GLib.File file = GLib.File.new_for_path(Path.build_filename(_project.source_dir(), resource_name));
+				GLib.AppInfo? app = file.query_default_handler();
+				GLib.List<GLib.File> files = new GLib.List<GLib.File>();
+				files.append(file);
+				app.launch(files, null);
+			}
+			catch (Error e)
+			{
+				loge(e.message);
+			}
+		}
 	}
 
 	private void on_show_grid(GLib.SimpleAction action, GLib.Variant? param)
@@ -1983,7 +2027,7 @@ public class LevelEditorApplication : Gtk.Application
 		dlg.set_destroy_with_parent(true);
 		dlg.set_transient_for(this.active_window);
 		dlg.set_modal(true);
-		dlg.set_logo_icon_name("pepper");
+		dlg.set_logo_icon_name(CROWN_ICON_NAME);
 
 		dlg.program_name = LEVEL_EDITOR_WINDOW_TITLE;
 		dlg.version = CROWN_VERSION;
@@ -2014,6 +2058,14 @@ public class LevelEditorApplication : Gtk.Application
 			+ "\nOTHER DEALINGS IN THE SOFTWARE."
 			+ "\n"
 			;
+		dlg.authors = { "Daniele Bartolini"
+			, "Simone Boscaratto"
+			, "Michele Rossi"
+			, "Raphael de Vasconcelos Nascimento"
+			};
+		dlg.artists = { "Michela Iacchelli - Pepper logo"
+			, "Giulia Gazzoli - Crown logo"
+			};
 		dlg.run();
 		dlg.destroy();
 	}
@@ -2170,6 +2222,7 @@ public static GLib.File _console_history_file;
 
 public static GLib.FileStream _log_stream;
 public static ConsoleView _console_view;
+public static bool _console_view_valid = false;
 
 public static void log(string system, string severity, string message)
 {
@@ -2187,7 +2240,7 @@ public static void log(string system, string severity, string message)
 		_log_stream.flush();
 	}
 
-	if (_console_view != null)
+	if (_console_view_valid)
 		_console_view.log(severity, line);
 }
 

@@ -1,18 +1,43 @@
 Changelog
 =========
 
-0.42.0
+0.43.0
 ------
 *DD MMM YYYY*
+
+**Data Compiler**
+
+* Windows: fixed garbage data written past EOF in some circumnstances.
+
+**Tools**
+
+* Windows: fixed wrong Editor View window size.
+* Added a setting to limit the number of lines displayed by the Console.
+* Added hyperlinks to resource paths in the Console.
+
+0.42.0
+------
+*05 Mar 2021*
+
+**Editor**
+
+* Improved the visibility and picking of the handles of every gizmo.
+* Added camera-plane translation to the Move tool.
+* Added camera-plane rotation to the Rotate tool.
+* Added axis-, plane- and uniform-scaling to the Scale tool.
+* Fixed an issue that prevented the Editor View to be restarted in some circumnstances.
+* Fixed the translation of multiple unaligned objects when snapping was enabled.
+* Added new Crown logo.
+* Added icons to the Level Tree View.
+* Updated the meshes for Sound, Camera and Light units.
+* Added a button to the Resource Chooser to "reveal" the selected resource in the Project Browser.
+* Fixed placement of objects when snap-to-grid was enabled.
 
 **Runtime**
 
 * Upgraded to LuaJIT 2.1.
 * Added support to 64-bits Android (ARMv8-a).
-
-**Tools**
-
-* The Scale Tool will now work as expected.
+* Fixed changing Mesh and Sprite visibility.
 
 0.41.0
 ------

@@ -12,7 +12,7 @@ public class MeshResource
 {
 	public static void create_components(Database db, Guid parent_unit_id, Guid unit_id, string material_name, string resource_name, string node_name, Hashtable node)
 	{
-		Unit unit = new Unit(db, unit_id, null);
+		Unit unit = new Unit(db, unit_id);
 
 		Matrix4x4 matrix_local = Matrix4x4.from_array((ArrayList<Value?>)node["matrix_local"]);
 		Vector3 position = matrix_local.t.to_vector3();
@@ -22,97 +22,67 @@ public class MeshResource
 		// Create transform
 		{
 			Guid component_id;
-			if (unit.has_component(out component_id, "transform"))
-			{
-				unit.set_component_property_vector3   (component_id, "data.position", position);
-				unit.set_component_property_quaternion(component_id, "data.rotation", rotation);
-				unit.set_component_property_vector3   (component_id, "data.scale", scale);
-				unit.set_component_property_string    (component_id, "type", "transform");
-			}
-			else
+			if (!unit.has_component(out component_id, "transform"))
 			{
 				component_id = Guid.new_guid();
 				db.create(component_id);
-				db.set_property_vector3   (component_id, "data.position", position);
-				db.set_property_quaternion(component_id, "data.rotation", rotation);
-				db.set_property_vector3   (component_id, "data.scale", scale);
-				db.set_property_string    (component_id, "type", "transform");
-
 				db.add_to_set(unit_id, "components", component_id);
 			}
+
+			unit.set_component_property_vector3   (component_id, "data.position", position);
+			unit.set_component_property_quaternion(component_id, "data.rotation", rotation);
+			unit.set_component_property_vector3   (component_id, "data.scale", scale);
+			unit.set_component_property_string    (component_id, "type", "transform");
 		}
 
 		// Create mesh_renderer
 		{
 			Guid component_id;
-			if (unit.has_component(out component_id, "mesh_renderer"))
-			{
-				unit.set_component_property_string(component_id, "data.geometry_name", node_name);
-				unit.set_component_property_string(component_id, "data.material", material_name);
-				unit.set_component_property_string(component_id, "data.mesh_resource", resource_name);
-				unit.set_component_property_bool  (component_id, "data.visible", true);
-				unit.set_component_property_string(component_id, "type", "mesh_renderer");
-			}
-			else
+			if (!unit.has_component(out component_id, "mesh_renderer"))
 			{
 				component_id = Guid.new_guid();
 				db.create(component_id);
-				db.set_property_string(component_id, "data.geometry_name", node_name);
-				db.set_property_string(component_id, "data.material", material_name);
-				db.set_property_string(component_id, "data.mesh_resource", resource_name);
-				db.set_property_bool  (component_id, "data.visible", true);
-				db.set_property_string(component_id, "type", "mesh_renderer");
-
 				db.add_to_set(unit_id, "components", component_id);
 			}
+
+			unit.set_component_property_string(component_id, "data.geometry_name", node_name);
+			unit.set_component_property_string(component_id, "data.material", material_name);
+			unit.set_component_property_string(component_id, "data.mesh_resource", resource_name);
+			unit.set_component_property_bool  (component_id, "data.visible", true);
+			unit.set_component_property_string(component_id, "type", "mesh_renderer");
 		}
 
 		// Create collider
 		{
 			Guid component_id;
-			if (unit.has_component(out component_id, "collider"))
-			{
-				unit.set_component_property_string(component_id, "data.shape", "mesh");
-				unit.set_component_property_string(component_id, "data.scene", resource_name);
-				unit.set_component_property_string(component_id, "data.name", node_name);
-				unit.set_component_property_string(component_id, "type", "collider");
-			}
-			else
+			if (!unit.has_component(out component_id, "collider"))
 			{
 				component_id = Guid.new_guid();
 				db.create(component_id);
-				db.set_property_string(component_id, "data.shape", "mesh");
-				db.set_property_string(component_id, "data.scene", resource_name);
-				db.set_property_string(component_id, "data.name", node_name);
-				db.set_property_string(component_id, "type", "collider");
-
 				db.add_to_set(unit_id, "components", component_id);
 			}
+
+			unit.set_component_property_string(component_id, "data.shape", "mesh");
+			unit.set_component_property_string(component_id, "data.scene", resource_name);
+			unit.set_component_property_string(component_id, "data.name", node_name);
+			unit.set_component_property_string(component_id, "type", "collider");
 		}
 
 		// Create actor
 		{
 			Guid component_id;
-			if (unit.has_component(out component_id, "actor"))
-			{
-				unit.set_component_property_string(component_id, "data.class", "static");
-				unit.set_component_property_string(component_id, "data.collision_filter", "default");
-				unit.set_component_property_double(component_id, "data.mass", 10);
-				unit.set_component_property_string(component_id, "data.material", "default");
-				unit.set_component_property_string(component_id, "type", "actor");
-			}
-			else
+			if (!unit.has_component(out component_id, "actor"))
 			{
 				component_id = Guid.new_guid();
 				db.create(component_id);
-				db.set_property_string(component_id, "data.class", "static");
-				db.set_property_string(component_id, "data.collision_filter", "default");
-				db.set_property_double(component_id, "data.mass", 10);
-				db.set_property_string(component_id, "data.material", "default");
-				db.set_property_string(component_id, "type", "actor");
-
 				db.add_to_set(unit_id, "components", component_id);
 			}
+
+			unit.set_component_property_string(component_id, "data.class", "static");
+			unit.set_component_property_string(component_id, "data.collision_filter", "default");
+			unit.set_component_property_double(component_id, "data.mass", 10);
+			unit.set_component_property_string(component_id, "data.material", "default");
+			unit.set_component_property_string(component_id, "type", "actor");
 		}
 
 		if (parent_unit_id != unit_id)
@@ -184,12 +154,21 @@ public class MeshResource
 			}
 
 			// Generate .unit
-			Database db = new Database();
+			project.load_unit(resource_name);
 
-			// Do not overwrite existing .unit
-			string unit_name = Path.build_filename(project.source_dir(), resource_name) + ".unit";
-			if (File.new_for_path(unit_name).query_exists())
-				db.load(unit_name);
+			Guid unit_id;
+			Database db = project._database;
+
+			if (db.has_property(GUID_ZERO, resource_name + ".unit"))
+			{
+				unit_id = db.get_property_guid(GUID_ZERO, resource_name + ".unit");
+			}
+			else
+			{
+				db = new Database();
+				unit_id = Guid.new_guid();
+				db.create(unit_id);
+			}
 
 			Hashtable mesh = SJSON.load(filename_i);
 			Hashtable mesh_nodes = (Hashtable)mesh["nodes"];
@@ -199,43 +178,36 @@ public class MeshResource
 				// Create an extra "root" unit to accommodate multiple root objects. This
 				// "root" unit will only have a transform centered at origin to allow other
 				// objects to be linked to it via the SceneGraph.
-				Unit unit = new Unit(db, GUID_ZERO, null);
+				Unit unit = new Unit(db, unit_id);
 
 				Guid component_id;
-				if (unit.has_component(out component_id, "transform"))
-				{
-					unit.set_component_property_vector3   (component_id, "data.position", VECTOR3_ZERO);
-					unit.set_component_property_quaternion(component_id, "data.rotation", QUATERNION_IDENTITY);
-					unit.set_component_property_vector3   (component_id, "data.scale", VECTOR3_ONE);
-					unit.set_component_property_string    (component_id, "type", "transform");
-				}
-				else
+				if (!unit.has_component(out component_id, "transform"))
 				{
 					component_id = Guid.new_guid();
 					db.create(component_id);
-					db.set_property_vector3   (component_id, "data.position", VECTOR3_ZERO);
-					db.set_property_quaternion(component_id, "data.rotation", QUATERNION_IDENTITY);
-					db.set_property_vector3   (component_id, "data.scale", VECTOR3_ONE);
-					db.set_property_string    (component_id, "type", "transform");
-
-					db.add_to_set(GUID_ZERO, "components", component_id);
+					db.add_to_set(unit_id, "components", component_id);
 				}
+
+				unit.set_component_property_vector3   (component_id, "data.position", VECTOR3_ZERO);
+				unit.set_component_property_quaternion(component_id, "data.rotation", QUATERNION_IDENTITY);
+				unit.set_component_property_vector3   (component_id, "data.scale", VECTOR3_ONE);
+				unit.set_component_property_string    (component_id, "type", "transform");
 			}
 
-			Guid new_unit_id = GUID_ZERO;
+			Guid new_unit_id = unit_id;
 			foreach (var entry in mesh_nodes.entries)
 			{
 				if (mesh_nodes.size > 1)
 				{
-					// If the mesh contains multiple root objects, create a new GUID for each
-					// one of those, otherwise use the special GUID_ZERO.
+					// If the mesh contains multiple root objects, create a new unit for each
+					// one of those, otherwise put the components inside the base unit.
 					new_unit_id = Guid.new_guid();
 					db.create(new_unit_id);
 				}
-				create_components(db, GUID_ZERO, new_unit_id, material_name, resource_name, entry.key, (Hashtable)entry.value);
+				create_components(db, unit_id, new_unit_id, material_name, resource_name, entry.key, (Hashtable)entry.value);
 			}
 
-			db.save(unit_name);
+			db.save(Path.build_filename(project.source_dir(), resource_path + ".unit"), unit_id);
 		}
 
 		return 0;

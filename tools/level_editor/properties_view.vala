@@ -8,24 +8,18 @@ using Gee;
 
 namespace Crown
 {
-public class PropertyRow : Gtk.Bin
-{
-	public PropertyRow(Gtk.Widget child)
-	{
-		this.hexpand = true;
-		add(child);
-	}
-}
-
-public class ComponentView : Gtk.Grid
+public class PropertyGrid : Gtk.Grid
 {
 	// Data
 	public Guid _id;
 	public Guid _component_id;
 	public int _rows;
 
-	public ComponentView()
+	public PropertyGrid()
 	{
+		this.row_spacing = 4;
+		this.column_spacing = 12;
+
 		// Data
 		_id = GUID_ZERO;
 		_component_id = GUID_ZERO;
@@ -34,17 +28,14 @@ public class ComponentView : Gtk.Grid
 
 	public void add_row(string label, Gtk.Widget w)
 	{
-		this.row_spacing = 6;
-		this.column_spacing = 12;
-
 		Gtk.Label l = new Label(label);
 		l.width_chars = 13;
 		l.set_alignment(1.0f, 0.5f);
 
-		PropertyRow r = new PropertyRow(w);
+		w.hexpand = true;
 
 		this.attach(l, 0, (int)_rows);
-		this.attach(r, 1, (int)_rows);
+		this.attach(w, 1, (int)_rows);
 		++_rows;
 	}
 
@@ -53,7 +44,30 @@ public class ComponentView : Gtk.Grid
 	}
 }
 
-public class TransformComponentView : ComponentView
+public class PropertyGridSet : Gtk.Box
+{
+	public PropertyGridSet()
+	{
+		Object(orientation: Gtk.Orientation.VERTICAL, spacing: 0);
+	}
+
+	public Gtk.Expander add_property_grid(PropertyGrid cv, string label)
+	{
+		Gtk.Label lb = new Gtk.Label(null);
+		lb.set_markup("<b>%s</b>".printf(label));
+		lb.set_alignment(0.0f, 0.5f);
+
+		Gtk.Expander expander = new Gtk.Expander("");
+		expander.label_widget = lb;
+		expander.child = cv;
+		expander.expanded = true;
+		this.pack_start(expander, false, true, 0);
+
+		return expander;
+	}
+}
+
+public class TransformPropertyGrid : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -63,12 +77,10 @@ public class TransformComponentView : ComponentView
 	private EntryRotation _rotation;
 	private EntryScale _scale;
 
-	public TransformComponentView(Level level)
+	public TransformPropertyGrid(Level level)
 	{
 		// Data
 		_level = level;
-		_id = GUID_ZERO;
-		_component_id = GUID_ZERO;
 
 		// Widgets
 		_position = new EntryPosition();
@@ -93,14 +105,14 @@ public class TransformComponentView : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 		_position.value = unit.get_component_property_vector3   (_component_id, "data.position");
 		_rotation.value = unit.get_component_property_quaternion(_component_id, "data.rotation");
 		_scale.value    = unit.get_component_property_vector3   (_component_id, "data.scale");
 	}
 }
 
-public class MeshRendererComponentView : ComponentView
+public class MeshRendererPropertyGrid : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -111,7 +123,7 @@ public class MeshRendererComponentView : ComponentView
 	private ResourceChooserButton _material;
 	private CheckBox _visible;
 
-	public MeshRendererComponentView(Level level, ProjectStore store)
+	public MeshRendererPropertyGrid(Level level, ProjectStore store)
 	{
 		// Data
 		_level = level;
@@ -145,7 +157,7 @@ public class MeshRendererComponentView : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 		_mesh_resource.value = unit.get_component_property_string(_component_id, "data.mesh_resource");
 		_geometry.text       = unit.get_component_property_string(_component_id, "data.geometry_name");
 		_material.value      = unit.get_component_property_string(_component_id, "data.material");
@@ -153,7 +165,7 @@ public class MeshRendererComponentView : ComponentView
 	}
 }
 
-public class SpriteRendererComponentView : ComponentView
+public class SpriteRendererPropertyGrid : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -165,7 +177,7 @@ public class SpriteRendererComponentView : ComponentView
 	private EntryDouble _depth;
 	private CheckBox _visible;
 
-	public SpriteRendererComponentView(Level level, ProjectStore store)
+	public SpriteRendererPropertyGrid(Level level, ProjectStore store)
 	{
 		// Data
 		_level = level;
@@ -203,7 +215,7 @@ public class SpriteRendererComponentView : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 		_sprite_resource.value = unit.get_component_property_string(_component_id, "data.sprite_resource");
 		_material.value        = unit.get_component_property_string(_component_id, "data.material");
 		_layer.value           = unit.get_component_property_double(_component_id, "data.layer");
@@ -212,7 +224,7 @@ public class SpriteRendererComponentView : ComponentView
 	}
 }
 
-public class LightComponentView : ComponentView
+public class LightPropertyGrid : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -224,7 +236,7 @@ public class LightComponentView : ComponentView
 	private EntryDouble _spot_angle;
 	private ColorButtonVector3 _color;
 
-	public LightComponentView(Level level)
+	public LightPropertyGrid(Level level)
 	{
 		// Data
 		_level = level;
@@ -265,7 +277,7 @@ public class LightComponentView : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 		string type       = unit.get_component_property_string (_component_id, "data.type");
 		double range      = unit.get_component_property_double (_component_id, "data.range");
 		double intensity  = unit.get_component_property_double (_component_id, "data.intensity");
@@ -280,7 +292,7 @@ public class LightComponentView : ComponentView
 	}
 }
 
-public class CameraComponentView : ComponentView
+public class CameraPropertyGrid : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -291,7 +303,7 @@ public class CameraComponentView : ComponentView
 	private EntryDouble _near_range;
 	private EntryDouble _far_range;
 
-	public CameraComponentView(Level level)
+	public CameraPropertyGrid(Level level)
 	{
 		// Data
 		_level = level;
@@ -327,7 +339,7 @@ public class CameraComponentView : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 
 		_projection.value = unit.get_component_property_string(_component_id, "data.projection");
 		_fov.value        = unit.get_component_property_double(_component_id, "data.fov") * (180.0/Math.PI);
@@ -336,7 +348,7 @@ public class CameraComponentView : ComponentView
 	}
 }
 
-public class ColliderComponentView : ComponentView
+public class ColliderPropertyGrid : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -347,7 +359,7 @@ public class ColliderComponentView : ComponentView
 	private ResourceChooserButton _scene;
 	private EntryText _name;
 
-	public ColliderComponentView(Level level, ProjectStore store)
+	public ColliderPropertyGrid(Level level, ProjectStore store)
 	{
 		// Data
 		_level = level;
@@ -385,7 +397,7 @@ public class ColliderComponentView : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 
 		Value? source = unit.get_component_property(_component_id, "data.source");
 		if (source != null)
@@ -415,7 +427,7 @@ public class ColliderComponentView : ComponentView
 	}
 }
 
-public class ActorComponentView : ComponentView
+public class ActorPropertyGrid : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -426,7 +438,7 @@ public class ActorComponentView : ComponentView
 	private EntryDouble _mass;
 	private EntryText _material;
 
-	public ActorComponentView(Level level)
+	public ActorPropertyGrid(Level level)
 	{
 		// Data
 		_level = level;
@@ -464,7 +476,7 @@ public class ActorComponentView : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 		_class.value           = unit.get_component_property_string(_component_id, "data.class");
 		_collision_filter.text = unit.get_component_property_string(_component_id, "data.collision_filter");
 		_material.text         = unit.get_component_property_string(_component_id, "data.material");
@@ -472,7 +484,7 @@ public class ActorComponentView : ComponentView
 	}
 }
 
-public class ScriptComponentView : ComponentView
+public class ScriptPropertyGrid : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -480,7 +492,7 @@ public class ScriptComponentView : ComponentView
 	// Widgets
 	private ResourceChooserButton _script_resource;
 
-	public ScriptComponentView(Level level, ProjectStore store)
+	public ScriptPropertyGrid(Level level, ProjectStore store)
 	{
 		// Data
 		_level = level;
@@ -502,12 +514,12 @@ public class ScriptComponentView : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 		_script_resource.value = unit.get_component_property_string(_component_id, "data.script_resource");
 	}
 }
 
-public class AnimationStateMachine : ComponentView
+public class AnimationStateMachine : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -537,41 +549,41 @@ public class AnimationStateMachine : ComponentView
 
 	public override void update()
 	{
-		Unit unit = new Unit(_level._db, _id, _level._prefabs);
+		Unit unit = new Unit(_level._db, _id);
 		_state_machine_resource.value = unit.get_component_property_string(_component_id, "data.state_machine_resource");
 	}
 }
 
-public class UnitView : ComponentView
+public class UnitView : PropertyGrid
 {
 	// Data
 	Level _level;
 
 	// Widgets
-	private EntryText _unit_name;
+	private ResourceChooserButton _prefab;
 
-	public UnitView(Level level)
+	public UnitView(Level level, ProjectStore store)
 	{
 		// Data
 		_level = level;
 
 		// Widgets
-		_unit_name = new EntryText();
-		_unit_name.sensitive = false;
+		_prefab = new ResourceChooserButton(store, "unit");
+		_prefab._selector.sensitive = false;
 
-		add_row("Name", _unit_name);
+		add_row("Prefab", _prefab);
 	}
 
 	public override void update()
 	{
 		if (_level._db.has_property(_id, "prefab"))
-			_unit_name.text = _level._db.get_property_string(_id, "prefab");
+			_prefab.value = _level._db.get_property_string(_id, "prefab");
 		else
-			_unit_name.text = "<none>";
+			_prefab.value = "<none>";
 	}
 }
 
-public class SoundTransformView : ComponentView
+public class SoundTransformView : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -584,7 +596,6 @@ public class SoundTransformView : ComponentView
 	{
 		// Data
 		_level = level;
-		_id = GUID_ZERO;
 
 		// Widgets
 		_position = new EntryPosition();
@@ -615,7 +626,7 @@ public class SoundTransformView : ComponentView
 	}
 }
 
-public class SoundView : ComponentView
+public class SoundView : PropertyGrid
 {
 	// Data
 	Level _level;
@@ -677,15 +688,15 @@ public class PropertiesView : Gtk.Bin
 	// Data
 	private Level _level;
 	private HashMap<string, Gtk.Expander> _expanders;
-	private HashMap<string, ComponentView> _components;
+	private HashMap<string, PropertyGrid> _objects;
 	private ArrayList<ComponentEntry?> _entries;
 
 	// Widgets
 	private Gtk.Label _nothing_to_show;
 	private Gtk.Viewport _viewport;
 	private Gtk.ScrolledWindow _scrolled_window;
-	private Gtk.Box _components_vbox;
-	private Gtk.Widget _current_widget;
+	private PropertyGridSet _object_view;
+	private Gtk.Stack _stack;
 
 	public PropertiesView(Level level, ProjectStore store)
 	{
@@ -694,86 +705,58 @@ public class PropertiesView : Gtk.Bin
 		_level.selection_changed.connect(on_selection_changed);
 
 		_expanders = new HashMap<string, Gtk.Expander>();
-		_components = new HashMap<string, ComponentView>();
+		_objects = new HashMap<string, PropertyGrid>();
 		_entries = new ArrayList<ComponentEntry?>();
 
 		// Widgets
-		_components_vbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-		_components_vbox.margin_bottom = 18;
+		_object_view = new PropertyGridSet();
+		_object_view.border_width = 6;
 
 		// Unit
-		add_component_view("Unit",                    "name",                    0, new UnitView(_level));
-		add_component_view("Transform",               "transform",               0, new TransformComponentView(_level));
-		add_component_view("Light",                   "light",                   1, new LightComponentView(_level));
-		add_component_view("Camera",                  "camera",                  2, new CameraComponentView(_level));
-		add_component_view("Mesh Renderer",           "mesh_renderer",           3, new MeshRendererComponentView(_level, store));
-		add_component_view("Sprite Renderer",         "sprite_renderer",         3, new SpriteRendererComponentView(_level, store));
-		add_component_view("Collider",                "collider",                3, new ColliderComponentView(_level, store));
-		add_component_view("Actor",                   "actor",                   3, new ActorComponentView(_level));
-		add_component_view("Script",                  "script",                  3, new ScriptComponentView(_level, store));
-		add_component_view("Animation State Machine", "animation_state_machine", 3, new AnimationStateMachine(_level, store));
+		register_object_type("Unit",                    "name",                    0, new UnitView(_level, store));
+		register_object_type("Transform",               "transform",               0, new TransformPropertyGrid(_level));
+		register_object_type("Light",                   "light",                   1, new LightPropertyGrid(_level));
+		register_object_type("Camera",                  "camera",                  2, new CameraPropertyGrid(_level));
+		register_object_type("Mesh Renderer",           "mesh_renderer",           3, new MeshRendererPropertyGrid(_level, store));
+		register_object_type("Sprite Renderer",         "sprite_renderer",         3, new SpriteRendererPropertyGrid(_level, store));
+		register_object_type("Collider",                "collider",                3, new ColliderPropertyGrid(_level, store));
+		register_object_type("Actor",                   "actor",                   3, new ActorPropertyGrid(_level));
+		register_object_type("Script",                  "script",                  3, new ScriptPropertyGrid(_level, store));
+		register_object_type("Animation State Machine", "animation_state_machine", 3, new AnimationStateMachine(_level, store));
 
 		// Sound
-		add_component_view("Transform", "sound_transform",  0, new SoundTransformView(_level));
-		add_component_view("Sound",     "sound_properties", 1, new SoundView(_level, store));
-
-		_entries.sort((a, b) => { return (a.position < b.position ? -1 : 1); });
-		foreach (var entry in _entries)
-			_components_vbox.pack_start(_expanders[entry.type], false, true, 0);
+		register_object_type("Transform", "sound_transform",  0, new SoundTransformView(_level));
+		register_object_type("Sound",     "sound_properties", 1, new SoundView(_level, store));
 
 		_nothing_to_show = new Gtk.Label("Nothing to show");
 
 		_viewport = new Gtk.Viewport(null, null);
-		_viewport.add(_components_vbox);
+		_viewport.add(_object_view);
 
 		_scrolled_window = new Gtk.ScrolledWindow(null, null);
 		_scrolled_window.add(_viewport);
 
-		_current_widget = null;
+		_stack = new Gtk.Stack();
+		_stack.add(_nothing_to_show);
+		_stack.add(_scrolled_window);
 
+		this.add(_stack);
 		this.get_style_context().add_class("properties-view");
-		this.set_current_widget(_nothing_to_show);
 	}
 
-	private void add_component_view(string label, string component_type, int position, ComponentView cv)
+	private void register_object_type(string label, string object_type, int position, PropertyGrid cv)
 	{
-		Gtk.Label lb = new Gtk.Label(null);
-		lb.set_markup("<b>%s</b>".printf(label));
-		lb.set_alignment(0.0f, 0.5f);
-
-		Gtk.Expander expander = new Gtk.Expander("");
-		expander.label_widget = lb;
-		expander.child = cv;
-		expander.expanded = true;
-		expander.margin_end = 12;
-
-		_components[component_type] = cv;
-		_expanders[component_type] = expander;
-
-		_entries.add({ component_type, position });
-	}
-
-	private void set_current_widget(Gtk.Widget w)
-	{
-		if (_current_widget == w)
-			return;
-
-		if (_current_widget != null)
-		{
-			_current_widget.hide();
-			remove(_current_widget);
-		}
-
-		_current_widget = w;
-		_current_widget.show_all();
-		add(_current_widget);
+		Gtk.Expander expander = _object_view.add_property_grid(cv, label);
+		_objects[object_type] = cv;
+		_expanders[object_type] = expander;
+		_entries.add({ object_type, position });
 	}
 
 	private void on_selection_changed(Gee.ArrayList<Guid?> selection)
 	{
 		if (selection.size != 1)
 		{
-			set_current_widget(_nothing_to_show);
+			_stack.set_visible_child(_nothing_to_show);
 			return;
 		}
 
@@ -781,17 +764,17 @@ public class PropertiesView : Gtk.Bin
 
 		if (_level.is_unit(id))
 		{
-			set_current_widget(_scrolled_window);
+			_stack.set_visible_child(_scrolled_window);
 
 			foreach (var entry in _entries)
 			{
 				Gtk.Expander expander = _expanders[entry.type];
 
-				Unit unit = new Unit(_level._db, id, _level._prefabs);
+				Unit unit = new Unit(_level._db, id);
 				Guid component_id;
 				if (unit.has_component(out component_id, entry.type) || entry.type == "name")
 				{
-					ComponentView cv = _components[entry.type];
+					PropertyGrid cv = _objects[entry.type];
 					cv._id = id;
 					cv._component_id = component_id;
 					cv.update();
@@ -805,7 +788,7 @@ public class PropertiesView : Gtk.Bin
 		}
 		else if (_level.is_sound(id))
 		{
-			set_current_widget(_scrolled_window);
+			_stack.set_visible_child(_scrolled_window);
 
 			foreach (var entry in _entries)
 			{
@@ -813,7 +796,7 @@ public class PropertiesView : Gtk.Bin
 
 				if (entry.type == "sound_transform" || entry.type == "sound_properties")
 				{
-					ComponentView cv = _components[entry.type];
+					PropertyGrid cv = _objects[entry.type];
 					cv._id = id;
 					cv.update();
 					expander.show_all();
@@ -826,7 +809,7 @@ public class PropertiesView : Gtk.Bin
 		}
 		else
 		{
-			set_current_widget(_nothing_to_show);
+			_stack.set_visible_child(_nothing_to_show);
 		}
 	}
 }

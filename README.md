@@ -17,8 +17,9 @@ for more info.
 ### Binaries
 
   * [Changelog](https://dbartolini.github.io/crown/html/latest/changelog.html)
-  * [Crown v0.41.0 for Linux 64-bits](https://github.com/dbartolini/crown/releases/download/v0.41.0/crown-0.41.0-linux-x64.tar.gz)
-  * [Crown v0.41.0 for Windows 64-bits](https://github.com/dbartolini/crown/releases/download/v0.41.0/crown-0.41.0-windows-x64.zip)
+  * [Crown v0.42.0 for Linux 64-bits](https://github.com/dbartolini/crown/releases/download/v0.42.0/crown-0.42.0-linux-x64.tar.gz)
+  * [Crown v0.42.0 for Windows 64-bits](https://github.com/dbartolini/crown/releases/download/v0.42.0/crown-0.42.0-windows-x64.zip)
+  * [Crown v0.42.0 all releases](https://github.com/dbartolini/crown/releases/tag/v0.42.0)
   
 ### Arch Linux ([AUR](https://aur.archlinux.org/packages/crown/))
     yay -S crown
@@ -65,7 +66,8 @@ Daniele Bartolini ([@dbartolini](https://github.com/dbartolini))
 Simone Boscaratto ([@Xed89](https://github.com/Xed89))  
 Michele Rossi ([@mikymod](https://github.com/mikymod))  
 Michela Iacchelli - Pepper logo.  
-Raphael de Vasconcelos Nascimento ([@vasconssa](https://github.com/vasconssa))
+Raphael de Vasconcelos Nascimento ([@vasconssa](https://github.com/vasconssa))  
+Giulia Gazzoli - Crown logo.
 
 License
 -------
